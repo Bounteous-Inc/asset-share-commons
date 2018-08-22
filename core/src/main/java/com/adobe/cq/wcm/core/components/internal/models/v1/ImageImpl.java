@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.Utils;
 import com.adobe.cq.wcm.core.components.internal.servlets.AdaptiveImageServlet;
 import com.adobe.cq.wcm.core.components.models.Image;
@@ -29,7 +27,6 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.Template;
 import com.day.cq.wcm.api.designer.Style;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.util.Text;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -38,7 +35,6 @@ import org.apache.sling.api.resource.ResourceMetadata;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.mime.MimeTypeService;
 import org.apache.sling.commons.osgi.PropertiesUtil;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Source;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
@@ -48,18 +44,13 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class, ComponentExporter.class}, resourceType = ImageImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class})
 public class ImageImpl implements Image {
 
     public static final String RESOURCE_TYPE = "core/wcm/components/image/v1/image";
@@ -226,7 +217,6 @@ public class ImageImpl implements Image {
                 linkURL = null;
                 alt = null;
             }
-            buildJson();
         }
     }
 
@@ -256,37 +246,13 @@ public class ImageImpl implements Image {
     }
 
     @Override
-    @JsonIgnore
     public String getFileReference() {
         return fileReference;
     }
 
     @Override
-    @JsonIgnore
     public String getJson() {
         return json;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return resource.getResourceType();
-    }
-
-    protected void buildJson() {
-        JsonArrayBuilder smartSizesJsonBuilder = Json.createArrayBuilder();
-        for (int size : smartSizes) {
-            smartSizesJsonBuilder.add(size);
-        }
-        JsonArrayBuilder smartImagesJsonBuilder = Json.createArrayBuilder();
-        for (String image : smartImages) {
-            smartImagesJsonBuilder.add(image);
-        }
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add(JSON_SMART_IMAGES, smartImagesJsonBuilder);
-        jsonObjectBuilder.add(JSON_SMART_SIZES, smartSizesJsonBuilder);
-        jsonObjectBuilder.add(JSON_LAZY_ENABLED, !disableLazyLoading);
-        json = jsonObjectBuilder.build().toString();
     }
 
     private Set<Integer> getSupportedRenditionWidths() {

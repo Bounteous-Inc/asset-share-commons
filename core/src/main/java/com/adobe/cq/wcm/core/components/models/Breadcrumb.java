@@ -15,10 +15,8 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import org.osgi.annotation.versioning.ConsumerType;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
@@ -27,7 +25,7 @@ import java.util.Collection;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface Breadcrumb extends ComponentExporter {
+public interface Breadcrumb {
 
     /**
      * Name of the resource property that will indicate if pages that are hidden for navigation will still be displayed.
@@ -59,16 +57,6 @@ public interface Breadcrumb extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
     default Collection<NavigationItem> getItems() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

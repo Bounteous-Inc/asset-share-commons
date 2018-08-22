@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.Navigation;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.LanguageManager;
@@ -33,7 +31,6 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -50,9 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {Navigation.class, ComponentExporter.class},
-       resourceType = {NavigationImpl.RESOURCE_TYPE})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME , extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+       adapters = {Navigation.class})
 public class NavigationImpl implements Navigation {
 
     public static final String RESOURCE_TYPE = "core/wcm/components/navigation/v1/navigation";
@@ -141,12 +136,6 @@ public class NavigationImpl implements Navigation {
             }
         }
         return items;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return request.getResource().getResourceType();
     }
 
     /**

@@ -15,7 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import com.day.cq.wcm.api.Page;
 import org.osgi.annotation.versioning.ConsumerType;
 
@@ -29,7 +28,7 @@ import java.util.Collection;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface List extends ComponentExporter {
+public interface List {
 
     /**
      * Name of the resource property indicating how the list will be built. Possible values are:
@@ -200,16 +199,6 @@ public interface List extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
     default String getDateFormatString() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 

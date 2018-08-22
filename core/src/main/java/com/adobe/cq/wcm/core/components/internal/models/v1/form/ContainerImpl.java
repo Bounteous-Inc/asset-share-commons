@@ -15,18 +15,12 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1.form;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ContainerExporter;
-import com.adobe.cq.export.json.ExporterConstants;
-import com.adobe.cq.export.json.SlingModelFilter;
 import com.adobe.cq.wcm.core.components.internal.Utils;
-import com.adobe.cq.wcm.core.components.internal.form.FormConstants;
 import com.adobe.cq.wcm.core.components.models.form.Container;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.foundation.forms.FormStructureHelper;
 import com.day.cq.wcm.foundation.forms.FormStructureHelperFactory;
 import com.day.cq.wcm.foundation.forms.FormsHelper;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -34,7 +28,6 @@ import org.apache.sling.api.request.RequestPathInfo;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -44,20 +37,14 @@ import org.apache.sling.models.factory.ModelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static com.day.cq.wcm.foundation.forms.FormsConstants.SCRIPT_FORM_SERVER_VALIDATION;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {Container.class, ContainerExporter.class},
-       resourceType = {FormConstants.RT_CORE_FORM_CONTAINER_V1, FormConstants.RT_CORE_FORM_CONTAINER_V2})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+       adapters = {Container.class})
 public class ContainerImpl implements Container {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ContainerImpl.class);
@@ -98,17 +85,12 @@ public class ContainerImpl implements Container {
 
     private String name;
     private String action;
-    private Map<String, ? extends ComponentExporter> childrenModels;
-    private String[] exportedItemsOrder;
 
     @ScriptVariable
     private Resource resource;
 
     @OSGiService
     private FormStructureHelperFactory formStructureHelperFactory;
-
-    @OSGiService
-    private SlingModelFilter slingModelFilter;
 
     @OSGiService
     private ModelFactory modelFactory;
@@ -128,10 +110,6 @@ public class ContainerImpl implements Container {
             if (StringUtils.isNotBlank(contextPath) && redirect.startsWith("/")) {
                 redirect = contextPath + redirect;
             }
-        }
-
-        if (!StringUtils.equals(request.getRequestPathInfo().getExtension(), ExporterConstants.SLING_MODEL_EXTENSION)) {
-            runActionTypeInit(formStructureHelper);
         }
     }
 
@@ -183,44 +161,4 @@ public class ContainerImpl implements Container {
         return redirect;
     }
 
-    @Nonnull
-    @Override
-    public Map<String, ? extends ComponentExporter> getExportedItems() {
-        if (childrenModels == null) {
-            childrenModels = getChildrenModels(request, ComponentExporter.class);
-        }
-        return childrenModels;
-    }
-
-    @Nonnull
-    @Override
-    public String[] getExportedItemsOrder() {
-        if (exportedItemsOrder == null) {
-            Map<String, ? extends ComponentExporter> models = getExportedItems();
-            if (!models.isEmpty()) {
-                exportedItemsOrder = models.keySet().toArray(ArrayUtils.EMPTY_STRING_ARRAY);
-            } else {
-                exportedItemsOrder = ArrayUtils.EMPTY_STRING_ARRAY;
-            }
-        }
-        return Arrays.copyOf(exportedItemsOrder,exportedItemsOrder.length);
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return resource.getResourceType();
-    }
-
-    private <T> Map<String, T> getChildrenModels(@Nonnull SlingHttpServletRequest request, @Nonnull Class<T>
-            modelClass) {
-        Map<String, T> models = new LinkedHashMap<>();
-        for (Resource child : slingModelFilter.filterChildResources(resource.getChildren())) {
-            T model = modelFactory.getModelFromWrappedRequest(request, child, modelClass);
-            if (model != null) {
-                models.put(child.getName(), model);
-            }
-        }
-        return models;
-    }
 }

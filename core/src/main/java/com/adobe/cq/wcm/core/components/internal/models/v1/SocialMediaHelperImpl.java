@@ -22,8 +22,6 @@ import com.adobe.cq.commerce.api.PriceInfo;
 import com.adobe.cq.commerce.api.Product;
 import com.adobe.cq.commerce.common.CommerceHelper;
 import com.adobe.cq.commerce.common.PriceFilter;
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.SocialMediaHelper;
 import com.adobe.cq.xf.social.ExperienceFragmentSocialVariation;
 import com.day.cq.commons.Externalizer;
@@ -38,7 +36,6 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -57,9 +54,7 @@ import java.util.Map;
 /**
  * Helper class for page functionality related to page sharing by user on social media platforms.
  */
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {SocialMediaHelper.class, ComponentExporter.class}, resourceType =
-        SocialMediaHelperImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {SocialMediaHelper.class})
 public class SocialMediaHelperImpl implements SocialMediaHelper {
 
     static final String RESOURCE_TYPE = "core/wcm/components/sharing/v1/sharing";
@@ -123,13 +118,11 @@ public class SocialMediaHelperImpl implements SocialMediaHelper {
     }
 
     @Override
-    @JsonProperty("hasFacebookSharing")
     public boolean hasFacebookSharing() {
         return facebookEnabled && hasSharingComponent();
     }
 
     @Override
-    @JsonProperty("hasPinteresSharing")
     public boolean hasPinterestSharing() {
         return pinterestEnabled && hasSharingComponent();
     }
@@ -140,12 +133,6 @@ public class SocialMediaHelperImpl implements SocialMediaHelper {
             initMetadata();
         }
         return metadata;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return request.getResource().getResourceType();
     }
 
     //*************** IMPLEMENTATION *******************

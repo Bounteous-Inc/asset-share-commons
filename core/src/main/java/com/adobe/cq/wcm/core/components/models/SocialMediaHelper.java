@@ -15,10 +15,8 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import org.osgi.annotation.versioning.ConsumerType;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -27,7 +25,7 @@ import java.util.Map;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface SocialMediaHelper extends ComponentExporter {
+public interface SocialMediaHelper {
 
     /**
      * Name of the resource property that will indicate which social networks are supported for social sharing.
@@ -120,16 +118,6 @@ public interface SocialMediaHelper extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
     default Map<String, String> getMetadata() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

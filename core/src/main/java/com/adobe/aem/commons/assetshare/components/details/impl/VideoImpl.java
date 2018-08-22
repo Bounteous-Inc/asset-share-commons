@@ -27,7 +27,6 @@ import com.day.cq.dam.commons.util.DamUtil;
 @Model(
         adaptables = { SlingHttpServletRequest.class },
         adapters = { Video.class },
-        resourceType = { VideoImpl.RESOURCE_TYPE },
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class VideoImpl extends AbstractEmptyTextComponent implements Video {
 

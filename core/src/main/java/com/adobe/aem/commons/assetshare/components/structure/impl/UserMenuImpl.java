@@ -39,8 +39,7 @@ import javax.jcr.RepositoryException;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {UserMenu.class},
-        resourceType = UserMenuImpl.RESOURCE_TYPE
+        adapters = {UserMenu.class}
 )
 public class UserMenuImpl implements UserMenu {
     private static final Logger log = LoggerFactory.getLogger(UserMenuImpl.class);

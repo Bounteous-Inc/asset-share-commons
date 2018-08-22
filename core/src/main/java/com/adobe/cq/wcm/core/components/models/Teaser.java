@@ -15,10 +15,8 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import org.apache.sling.api.resource.Resource;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -26,7 +24,7 @@ import java.util.List;
  *
  * @since com.adobe.cq.wcm.core.components.models 12.4.0
  */
-public interface Teaser extends ComponentExporter {
+public interface Teaser {
 
     /**
      * Name of the resource property that defines whether or not the teaser has Call-to-Action elements
@@ -200,15 +198,6 @@ public interface Teaser extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 12.4.0
      */
     default String getTitleType() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @since com.adobe.cq.wcm.core.components.models 12.4.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 

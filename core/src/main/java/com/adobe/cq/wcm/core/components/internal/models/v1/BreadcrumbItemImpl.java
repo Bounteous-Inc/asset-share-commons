@@ -18,12 +18,10 @@ package com.adobe.cq.wcm.core.components.internal.models.v1;
 
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.sling.api.SlingHttpServletRequest;
 
 import java.util.List;
 
-@JsonIgnoreProperties(value = {"page", "children", "level", "description", "lastModified", "path"})
 public class BreadcrumbItemImpl extends NavigationItemImpl implements NavigationItem {
 
     public BreadcrumbItemImpl(Page page, boolean active, SlingHttpServletRequest request, int level, List<NavigationItem> children) {

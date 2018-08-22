@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1.form;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.form.FormConstants;
 import com.adobe.cq.wcm.core.components.models.form.Button;
 import com.day.cq.i18n.I18n;
@@ -24,7 +22,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -33,10 +30,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import javax.annotation.PostConstruct;
 
 @Model(adaptables = {SlingHttpServletRequest.class, Resource.class},
-       adapters = {Button.class, ComponentExporter.class},
-       resourceType = {FormConstants.RT_CORE_FORM_BUTTON_V1, FormConstants.RT_CORE_FORM_BUTTON_V2})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ButtonImpl extends AbstractFieldImpl implements Button, ComponentExporter {
+       adapters = {Button.class})
+public class ButtonImpl extends AbstractFieldImpl implements Button {
 
     private static final String PROP_TYPE_DEFAULT = "submit";
     private static final String PN_TYPE = "type";

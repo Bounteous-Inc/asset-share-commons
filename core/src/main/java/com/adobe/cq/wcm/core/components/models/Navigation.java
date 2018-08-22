@@ -15,9 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
-
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -25,7 +22,7 @@ import java.util.List;
  *
  * @since com.adobe.cq.wcm.core.components.models 12.2.0
  */
-public interface Navigation extends ComponentExporter {
+public interface Navigation {
 
     /**
      * Name of the resource / configuration policy property that defines the site's navigation root for which to build the navigation tree.
@@ -68,16 +65,6 @@ public interface Navigation extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 12.2.0
      */
     default List<NavigationItem> getItems() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 

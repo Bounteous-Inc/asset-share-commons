@@ -15,10 +15,7 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import org.osgi.annotation.versioning.ConsumerType;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines the {@code Text} Sling Model used for the {@code /apps/core/wcm/components/text} component.
@@ -26,7 +23,7 @@ import javax.annotation.Nonnull;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface Text extends ComponentExporter {
+public interface Text {
 
     /**
      * Retrieves the text value to be displayed.
@@ -45,16 +42,6 @@ public interface Text extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
     default boolean isRichText() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

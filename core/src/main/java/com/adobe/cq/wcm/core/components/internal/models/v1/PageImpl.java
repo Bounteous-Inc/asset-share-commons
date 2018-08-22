@@ -15,10 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ContainerExporter;
-import com.adobe.cq.export.json.ExporterConstants;
-import com.adobe.cq.export.json.SlingModelFilter;
 import com.adobe.cq.wcm.core.components.models.Page;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
@@ -26,14 +22,12 @@ import com.day.cq.wcm.api.Template;
 import com.day.cq.wcm.api.designer.Design;
 import com.day.cq.wcm.api.designer.Designer;
 import com.day.cq.wcm.api.designer.Style;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -48,13 +42,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {Page.class, ContainerExporter.class}, resourceType = PageImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {Page.class})
 public class PageImpl implements Page {
 
     protected static final String RESOURCE_TYPE = "core/wcm/components/page/v1/page";
@@ -66,22 +58,16 @@ public class PageImpl implements Page {
     protected ValueMap pageProperties;
 
     @ScriptVariable
-    @JsonIgnore
     protected Design currentDesign;
 
     @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @JsonIgnore
     protected Style currentStyle;
 
     @ScriptVariable
-    @JsonIgnore
     protected ResourceResolver resolver;
 
     @Inject
     private ModelFactory modelFactory;
-
-    @Inject
-    private SlingModelFilter slingModelFilter;
 
     @Self
     private SlingHttpServletRequest request;
@@ -96,10 +82,8 @@ public class PageImpl implements Page {
 
     protected static final String DEFAULT_TEMPLATE_EDITOR_CLIENTLIB = "wcm.foundation.components.parsys.allowedcomponents";
     protected static final String PN_CLIENTLIBS = "clientlibs";
-    private Map<String, ComponentExporter> childModels = null;
     private String resourceType;
 
-    @JsonIgnore
     protected Map<String, String> favicons = new HashMap<>();
 
     @PostConstruct
@@ -155,7 +139,6 @@ public class PageImpl implements Page {
     }
 
     @Override
-    @JsonIgnore
     public String[] getKeywords() {
         return Arrays.copyOf(keywords, keywords.length);
     }
@@ -171,7 +154,6 @@ public class PageImpl implements Page {
     }
 
     @Override
-    @JsonIgnore
     public Map<String, String> getFavicons() {
         return favicons;
     }
@@ -187,63 +169,8 @@ public class PageImpl implements Page {
     }
 
     @Override
-    @JsonIgnore
     public String[] getClientLibCategories() {
         return Arrays.copyOf(clientLibCategories, clientLibCategories.length);
-    }
-
-    @Nonnull
-    @Override
-    public Map<String, ? extends ComponentExporter> getExportedItems() {
-        if (childModels == null) {
-            childModels = getChildModels(request, ComponentExporter.class);
-        }
-
-        return childModels;
-    }
-
-    @Nonnull
-    @Override
-    public String[] getExportedItemsOrder() {
-        Map<String, ? extends ComponentExporter> models = getExportedItems();
-
-        if (models.isEmpty()) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
-        }
-
-        return models.keySet().toArray(ArrayUtils.EMPTY_STRING_ARRAY);
-
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        if (StringUtils.isEmpty(resourceType)) {
-            resourceType = pageProperties.get(ResourceResolver.PROPERTY_RESOURCE_TYPE, String.class);
-            if (StringUtils.isEmpty(resourceType)) {
-                resourceType = currentPage.getContentResource().getResourceType();
-            }
-        }
-        return resourceType;
-    }
-
-    /**
-     * Returns a map (resource name => Sling Model class) of the given resource children's Sling Models that can be adapted to {@link T}.
-     *
-     * @param slingRequest The current request.
-     * @param modelClass  The Sling Model class to be adapted to.
-     * @return Returns a map (resource name => Sling Model class) of the given resource children's Sling Models that can be adapted to {@link T}.
-     */
-    @Nonnull
-    private <T> Map<String, T> getChildModels(@Nonnull SlingHttpServletRequest slingRequest,
-                                              @Nonnull Class<T> modelClass) {
-        Map<String, T> itemWrappers = new LinkedHashMap<>();
-
-        for (final Resource child : slingModelFilter.filterChildResources(request.getResource().getChildren())) {
-            itemWrappers.put(child.getName(), modelFactory.getModelFromWrappedRequest(slingRequest, child, modelClass));
-        }
-
-        return  itemWrappers;
     }
 
     protected void loadFavicons(String designPath) {

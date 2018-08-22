@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.Utils;
 import com.adobe.cq.wcm.core.components.models.ListItem;
 import com.adobe.cq.wcm.core.components.models.Teaser;
@@ -27,12 +25,10 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.components.Component;
 import com.day.cq.wcm.api.designer.Style;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -47,8 +43,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {Teaser.class, ComponentExporter.class}, resourceType = TeaserImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME , extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {Teaser.class})
 public class TeaserImpl extends AbstractImageDelegatingModel implements Teaser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TeaserImpl.class);
@@ -85,7 +80,6 @@ public class TeaserImpl extends AbstractImageDelegatingModel implements Teaser {
     private PageManager pageManager;
 
     @ScriptVariable(injectionStrategy = InjectionStrategy.OPTIONAL)
-    @JsonIgnore
     protected Style currentStyle;
 
     @Self
@@ -207,7 +201,6 @@ public class TeaserImpl extends AbstractImageDelegatingModel implements Teaser {
 
                     @Nullable
                     @Override
-                    @JsonIgnore
                     public String getPath() {
                         return url;
                     }
@@ -276,11 +269,5 @@ public class TeaserImpl extends AbstractImageDelegatingModel implements Teaser {
             return heading.getElement();
         }
         return null;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return request.getResource().getResourceType();
     }
 }
