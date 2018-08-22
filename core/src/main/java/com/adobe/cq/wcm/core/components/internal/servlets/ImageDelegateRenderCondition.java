@@ -26,7 +26,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.servlets.ServletResolverConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
 
@@ -40,8 +39,8 @@ import java.io.IOException;
 @Component(
         service = {Servlet.class},
         property = {
-                ServletResolverConstants.SLING_SERVLET_RESOURCE_TYPES + "=" + ImageDelegateRenderCondition.RESOURCE_TYPE,
-                ServletResolverConstants.SLING_SERVLET_METHODS + "=GET"
+                "sling.servlet.resourceTypes=" + ImageDelegateRenderCondition.RESOURCE_TYPE,
+                "sling.servlet.methods=GET"
         }
 )
 public class ImageDelegateRenderCondition extends SlingSafeMethodsServlet {

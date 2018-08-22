@@ -100,7 +100,6 @@ public class ImageImpl extends com.adobe.cq.wcm.core.components.internal.models.
             }
 
             buildAreas();
-            buildJson();
         }
     }
 
