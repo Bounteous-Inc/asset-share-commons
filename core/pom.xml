@@ -103,10 +103,6 @@
             <artifactId>javax.inject</artifactId>
         </dependency>
 		<dependency>
-			<groupId>com.adobe.cq</groupId>
-			<artifactId>core.wcm.components.core</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.http.jetty</artifactId>
 			<version>3.4.2</version>
