@@ -98,7 +98,7 @@ public class TextImpl extends AbstractFieldImpl implements Text {
 
     @PostConstruct
     private void initModel() {
-        slingRequest.setAttribute(FormsHelper.REQ_ATTR_FORM_STRUCTURE_HELPER,
+        slingRequest.setAttribute("cq.form.formstructurehelper",
                 formStructureHelperFactory.getFormStructureHelper(resource));
         prefillValues = FormsHelper.getValues(slingRequest, resource);
         if (prefillValues == null) {

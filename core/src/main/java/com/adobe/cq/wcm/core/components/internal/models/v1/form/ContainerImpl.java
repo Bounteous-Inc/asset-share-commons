@@ -98,7 +98,7 @@ public class ContainerImpl implements Container {
     @PostConstruct
     private void initModel() {
         FormStructureHelper formStructureHelper = formStructureHelperFactory.getFormStructureHelper(resource);
-        request.setAttribute(FormsHelper.REQ_ATTR_FORM_STRUCTURE_HELPER, formStructureHelper);
+        request.setAttribute("cq.form.formstructurehelper", formStructureHelper);
         this.action = Utils.getURL(request, currentPage);
         if (StringUtils.isBlank(id)) {
             id = FormsHelper.getFormId(request);

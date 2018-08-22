@@ -47,7 +47,7 @@ public class HiddenImpl extends AbstractFieldImpl {
 
     @PostConstruct
     private void initModel() {
-        slingRequest.setAttribute(FormsHelper.REQ_ATTR_FORM_STRUCTURE_HELPER,
+        slingRequest.setAttribute("cq.form.formstructurehelper",
                 formStructureHelperFactory.getFormStructureHelper(resource));
         String[] prefillValues = FormsHelper.getValues(slingRequest, resource);
         if (prefillValues == null || prefillValues.length == 0) {
