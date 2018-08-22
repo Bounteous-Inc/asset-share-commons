@@ -142,12 +142,12 @@ public class ImageImpl extends com.adobe.cq.wcm.core.components.internal.models.
                     break;
                 }
                 if (remainingTokens.length > 0) {
-                    String href = StringUtils.removeAll(remainingTokens[0], "\"");
+                    String href = remainingTokens[0].replaceAll("\"", "");
                     if (StringUtils.isBlank(href)) {
                         break;
                     }
-                    String target = remainingTokens.length > 1 ? StringUtils.removeAll(remainingTokens[1], "\"") : "";
-                    String alt = remainingTokens.length > 2 ? StringUtils.removeAll(remainingTokens[2], "\"") : "";
+                    String target = remainingTokens.length > 1 ? remainingTokens[1].replaceAll("\"", "") : "";
+                    String alt = remainingTokens.length > 2 ? remainingTokens[2].replaceAll("\"", "") : "";
                     String relativeCoordinates = remainingTokens.length > 3 ? remainingTokens[3] : "";
                     relativeCoordinates = StringUtils.substringBetween(relativeCoordinates, "(", ")");
                     if (href.startsWith("/")) {
