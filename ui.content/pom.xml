@@ -66,11 +66,6 @@
 			<artifactId>org.apache.sling.scripting.jsp.taglib</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.adobe.aem</groupId>
-			<artifactId>uber-jar</artifactId>
-			<classifier>apis</classifier>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>

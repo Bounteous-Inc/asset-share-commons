@@ -159,13 +159,6 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.adobe.aem</groupId>
-                <artifactId>uber-jar</artifactId>
-                <version>6.2.0</version>
-                <scope>provided</scope>
-                <classifier>apis</classifier>
-            </dependency>
-            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.6</version>
@@ -238,6 +231,13 @@
                 <artifactId>jackson-core</artifactId>
                 <version>2.3.2</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.aem.commons</groupId>
+                <artifactId>assetshare.platform</artifactId>
+                <version>1.6.3-SNAPSHOT</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -572,6 +572,7 @@
         <profile>
 			<id>autoInstallPackage-all</id>
             <modules>
+                <module>platform</module>
                 <module>core</module>
                 <module>ui.apps</module>
                 <module>ui.content</module>
@@ -579,6 +580,7 @@
 		</profile>
     </profiles>
     <modules>
+        <module>platform</module>
         <module>core</module>
         <module>ui.apps</module>
         <module>ui.content</module>
