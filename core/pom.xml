@@ -143,12 +143,6 @@
 			<artifactId>jackson-core</artifactId>
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.day.cq.wcm</groupId>
-			<artifactId>cq-wcm-foundation</artifactId>
-		</dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
