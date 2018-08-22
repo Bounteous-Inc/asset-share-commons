@@ -135,6 +135,7 @@
 						<exclude>**/extensions/**/*.js</exclude>
 						<exclude>**/vendor/**/*.js</exclude>
 						<exclude>**/clientlib-theme/**/*.js</exclude>
+						<exclude>**/core/wcm/**/*.js</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
