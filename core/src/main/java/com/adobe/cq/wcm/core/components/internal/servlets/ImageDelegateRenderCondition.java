@@ -16,7 +16,7 @@
 package com.adobe.cq.wcm.core.components.internal.servlets;
 
 import com.adobe.cq.wcm.core.components.internal.models.v1.AbstractImageDelegatingModel;
-import com.adobe.granite.ui.components.ExpressionCustomizer;
+import com.adobe.cq.wcm.core.components.internal.servlets.util.ExpressionCustomizer;
 import com.adobe.granite.ui.components.rendercondition.RenderCondition;
 import com.adobe.granite.ui.components.rendercondition.SimpleRenderCondition;
 import com.day.cq.wcm.api.NameConstants;
