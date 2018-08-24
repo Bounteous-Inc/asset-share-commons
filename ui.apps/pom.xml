@@ -91,6 +91,24 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -105,6 +123,13 @@
 			<resource>
 				<directory>src/main/content/META-INF/vault/definition</directory>
 				<targetPath>../vault-work/META-INF/vault/definition</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/content/META-INF/vault</directory>
+				<includes>
+					<include>nodetypes.cnd</include>
+				</includes>
+				<targetPath>../vault-work/META-INF/vault</targetPath>
 			</resource>
 		</resources>
 
@@ -158,6 +183,26 @@
 					<embeddeds>
 						<embedded>
 							<artifactId>assetshare.core</artifactId>
+							<target>/apps/asset-share-commons/install</target>
+						</embedded>
+						<embedded>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-databind</artifactId>
+							<target>/apps/asset-share-commons/install</target>
+						</embedded>
+						<embedded>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-annotations</artifactId>
+							<target>/apps/asset-share-commons/install</target>
+						</embedded>
+						<embedded>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-core</artifactId>
+							<target>/apps/asset-share-commons/install</target>
+						</embedded>
+						<embedded>
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-collections4</artifactId>
 							<target>/apps/asset-share-commons/install</target>
 						</embedded>
 					</embeddeds>

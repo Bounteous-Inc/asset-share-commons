@@ -37,6 +37,47 @@
 	<name>Asset Share Commons - Core</name>
 
 	<dependencies>
+		<!-- OVERRIDDEN FROM 6.2 VERSIONS -->
+		<dependency>
+			<groupId>com.day.cq.dam</groupId>
+			<artifactId>cq-dam-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq</groupId>
+			<artifactId>cq-xssprotection</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq.wcm</groupId>
+			<artifactId>cq-wcm-foundation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq.wcm</groupId>
+			<artifactId>cq-wcm-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.adobe.granite</groupId>
+			<artifactId>com.adobe.granite.ui.commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.sling</groupId>
+			<artifactId>org.apache.sling.scripting.api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.sling</groupId>
+			<artifactId>org.apache.sling.models.api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq.wcm</groupId>
+			<artifactId>cq-wcm-api</artifactId>
+		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>com.adobe.granite.osgi.wrapper</groupId>
+			<artifactId>com.adobe.granite.osgi.wrapper.guava</artifactId>
+		</dependency>
 		<dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
@@ -181,8 +222,6 @@
 		<dependency>
 			<groupId>com.adobe.granite</groupId>
 			<artifactId>com.adobe.granite.ui.clientlibs</artifactId>
-			<version>1.0.36-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.day.commons</groupId>
@@ -254,62 +293,14 @@
 			<groupId>com.day.commons</groupId>
 			<artifactId>day-commons-gfx</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.annotations</artifactId>
+			<version>1.9.8</version>
+			<scope>provided</scope>
+		</dependency>
 
-		<!-- OVERRIDDEN FROM 6.2 VERSIONS -->
-		<dependency>
-			<groupId>com.day.cq.dam</groupId>
-			<artifactId>cq-dam-commons</artifactId>
-			<version>5.10.152-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.day.cq.wcm</groupId>
-			<artifactId>cq-wcm-api</artifactId>
-			<version>5.11.32-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.sling</groupId>
-			<artifactId>org.apache.sling.xss</artifactId>
-			<version>1.0.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.day.cq.wcm</groupId>
-			<artifactId>cq-wcm-foundation</artifactId>
-			<version>5.10.84-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.day.cq.wcm</groupId>
-			<artifactId>cq-wcm-commons</artifactId>
-			<version>5.10.12</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adobe.granite</groupId>
-			<artifactId>com.adobe.granite.resourcestatus</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adobe.granite</groupId>
-			<artifactId>com.adobe.granite.ui.commons</artifactId>
-			<version>5.7.6-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.sling</groupId>
-			<artifactId>org.apache.sling.scripting.api</artifactId>
-			<version>2.1.12</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.sling</groupId>
-			<artifactId>org.apache.sling.models.api</artifactId>
-			<version>1.3.6</version>
-			<scope>provided</scope>
-		</dependency>
+		<!-- ADDED TO MAKE 6.3 HAPPY -->
     </dependencies>
 
 	<!-- ====================================================================== -->
@@ -324,14 +315,38 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
 						<Import-Package>
 							com.adobe.acs.commons.email;resolution:=optional,
+							bsh;resolution:=optional,
+							com.adobe.cq.export.json;resolution:=optional,
+							nu.xom;resolution:=optional,
+							org.apache.avalon.framework.logger;resolution:=optional,
+							org.apache.commons.digester.*;resolution:=optional,
+							org.apache.commons.jxpath.*;resolution:=optional,
+							org.apache.el;resolution:=optional,
+							org.apache.log;resolution:=optional,
+							org.apache.tools.ant.taskdefs;resolution:=optional,
+							org.apache.xml.resolver.*;resolution:=optional,
+							org.osgi.service.useradmin;resolution:=optional,
+							org.w3c.dom.svg;resolution:=optional,
+							sun.io;resolution:=optional,
 							*
 						</Import-Package>
-						<_plugin>org.apache.sling.bnd.models.ModelsScannerPlugin</_plugin>
+						<_plugin>org.apache.felix.scrplugin.bnd.SCRDescriptorBndPlugin;destdir=${project.build.outputDirectory},
+							org.apache.sling.bnd.models.ModelsScannerPlugin</_plugin>
+						<Sling-Model-Packages>
+							com.adobe.aem.commons.assetshare,
+							com.adobe.cq.wcm.core.components
+						</Sling-Model-Packages>
 					</instructions>
 				</configuration>
 				<dependencies>
+					<dependency>
+						<groupId>org.apache.felix</groupId>
+						<artifactId>org.apache.felix.scr.bnd</artifactId>
+						<version>1.9.0</version>
+					</dependency>
 					<dependency>
 						<groupId>org.apache.sling</groupId>
 						<artifactId>org.apache.sling.bnd.models</artifactId>
