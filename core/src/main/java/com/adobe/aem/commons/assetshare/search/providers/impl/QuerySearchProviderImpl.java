@@ -26,6 +26,7 @@ import com.adobe.aem.commons.assetshare.search.UnsafeSearchException;
 import com.adobe.aem.commons.assetshare.search.providers.QuerySearchPostProcessor;
 import com.adobe.aem.commons.assetshare.search.providers.QuerySearchPreProcessor;
 import com.adobe.aem.commons.assetshare.search.providers.SearchProvider;
+import com.adobe.aem.commons.assetshare.search.providers.request.ResourceOverridingRequestWrapper;
 import com.adobe.aem.commons.assetshare.search.results.AssetResult;
 import com.adobe.aem.commons.assetshare.search.results.Result;
 import com.adobe.aem.commons.assetshare.search.results.Results;
@@ -40,6 +41,7 @@ import com.day.text.Text;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.adapter.AdapterManager;
 import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -71,6 +73,9 @@ public class QuerySearchProviderImpl implements SearchProvider {
 
     @Reference
     private ModelFactory modelFactory;
+
+    @Reference
+    private AdapterManager adapterManager;
 
     @Reference(cardinality = ReferenceCardinality.OPTIONAL)
     private QuerySearchPreProcessor querySearchPreProcessor;
@@ -118,7 +123,8 @@ public class QuerySearchProviderImpl implements SearchProvider {
 
             try {
                 final Resource hitResource = resourceResolver.getResource(hit.getPath());
-                final AssetResult assetSearchResult = modelFactory.getModelFromWrappedRequest(request, hitResource, AssetResult.class);
+                ResourceOverridingRequestWrapper wrapper = new ResourceOverridingRequestWrapper(request, hitResource, adapterManager);
+                final AssetResult assetSearchResult = wrapper.adaptTo(AssetResult.class);
                 if (assetSearchResult != null) {
                     results.add(assetSearchResult);
                 }

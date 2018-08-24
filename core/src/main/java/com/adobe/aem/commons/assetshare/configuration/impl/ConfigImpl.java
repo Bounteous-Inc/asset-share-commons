@@ -23,6 +23,8 @@ import com.adobe.aem.commons.assetshare.components.actions.share.ShareService;
 import com.adobe.aem.commons.assetshare.configuration.Config;
 import com.adobe.aem.commons.assetshare.configuration.impl.selectors.AlwaysUseDefaultSelectorImpl;
 import com.adobe.aem.commons.assetshare.content.AssetModel;
+import com.adobe.aem.commons.assetshare.search.providers.request.ResourceOverridingRequestWrapper;
+import com.adobe.aem.commons.assetshare.search.results.AssetResult;
 import com.adobe.aem.commons.assetshare.util.ForcedInheritanceValueMapWrapper;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.dam.entitlement.api.EntitlementConstants;
@@ -32,6 +34,8 @@ import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.commons.WCMUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.adapter.Adaptable;
+import org.apache.sling.api.adapter.AdapterManager;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -106,6 +110,9 @@ public class ConfigImpl implements Config {
     @Required
     private Features features;
 
+    @OSGiService
+    private AdapterManager adapterManager;
+
     private Page currentPage;
 
     private ValueMap properties;
@@ -163,7 +170,9 @@ public class ConfigImpl implements Config {
 
         final Resource placeholderResource = requestResource.getResourceResolver().getResource(path);
         if (placeholderResource != null) {
-            return modelFactory.getModelFromWrappedRequest(request, placeholderResource, AssetModel.class);
+            ResourceOverridingRequestWrapper wrapper = new ResourceOverridingRequestWrapper(request, placeholderResource, adapterManager);
+            final AssetResult asset = wrapper.adaptTo(AssetResult.class);
+            return null;
         } else {
             return null;
         }

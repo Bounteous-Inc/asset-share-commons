@@ -166,8 +166,8 @@ public class EmailShareServiceImpl implements ShareService {
         for (final String assetPath : assetPaths) {
             final Resource assetResource = config.getResourceResolver().getResource(assetPath);
             if (assetResource != null && DamUtil.isAsset(assetResource)) {
-                final AssetModel asset = modelFactory.getModelFromWrappedRequest(config.getRequest(), assetResource, AssetModel.class);
-
+//                final AssetModel asset = modelFactory.getModelFromWrappedRequest(config.getRequest(), assetResource, AssetModel.class);
+                final AssetModel asset = null;
                 String url = assetDetailsResolver.getFullUrl(config, asset);
 
                 if (StringUtils.isBlank(url)) {

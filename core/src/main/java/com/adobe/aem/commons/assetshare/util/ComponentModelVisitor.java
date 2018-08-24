@@ -57,7 +57,8 @@ public final class ComponentModelVisitor<T> extends ResourceTypeVisitor {
 
     private void handleModelVisit(Resource resource) {
         if (clazz != null) {
-            final T model = modelFactory.getModelFromWrappedRequest(request, resource, clazz);
+//            final T model = modelFactory.getModelFromWrappedRequest(request, resource, clazz);
+            final T model = null;
 
             if (model != null) {
                 models.add(model);
