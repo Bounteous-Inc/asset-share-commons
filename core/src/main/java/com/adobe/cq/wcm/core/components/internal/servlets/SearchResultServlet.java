@@ -260,7 +260,8 @@ public class SearchResultServlet extends SlingSafeMethodsServlet {
         ResourceResolver resourceResolver = searchResource.getResourceResolver();
         ContentPolicyManager contentPolicyManager = resourceResolver.adaptTo(ContentPolicyManager.class);
         if (contentPolicyManager != null) {
-            ContentPolicy policy = contentPolicyManager.getPolicy(searchResource);
+//            ContentPolicy policy = contentPolicyManager.getPolicy(searchResource);
+            ContentPolicy policy = null;
             if (policy != null) {
                 contentPolicyProperties = policy.getProperties();
             }

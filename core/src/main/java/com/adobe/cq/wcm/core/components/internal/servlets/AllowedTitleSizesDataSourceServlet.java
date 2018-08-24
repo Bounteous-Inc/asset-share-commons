@@ -61,7 +61,8 @@ public class AllowedTitleSizesDataSourceServlet extends SlingSafeMethodsServlet 
         Resource contentResource = resolver.getResource((String) request.getAttribute(Value.CONTENTPATH_ATTRIBUTE));
         ContentPolicyManager policyMgr = resolver.adaptTo(ContentPolicyManager.class);
         if (policyMgr != null) {
-            ContentPolicy policy = policyMgr.getPolicy(contentResource);
+//            ContentPolicy policy = policyMgr.getPolicy(contentResource);
+            ContentPolicy policy = null;
             if (policy != null) {
                 ValueMap props = policy.getProperties();
                 if (props != null) {

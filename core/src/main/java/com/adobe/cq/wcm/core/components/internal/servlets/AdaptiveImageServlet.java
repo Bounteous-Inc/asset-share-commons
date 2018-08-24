@@ -624,7 +624,8 @@ public class AdaptiveImageServlet extends SlingSafeMethodsServlet {
                     }
                 }
             }
-            ContentPolicy contentPolicy = policyManager.getPolicy(imageResource, request);
+//            ContentPolicy contentPolicy = policyManager.getPolicy(imageResource, request);
+            ContentPolicy contentPolicy = null;
             if (contentPolicy != null) {
                 String[] allowedRenditionWidths = contentPolicy.getProperties()
                         .get(com.adobe.cq.wcm.core.components.models.Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]);
