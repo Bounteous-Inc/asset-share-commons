@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.adobe.aem.commons</groupId>
     <artifactId>assetshare.platform</artifactId>
-    <version>1.6.3-SNAPSHOT</version>
+    <version>1.0.62-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <description>[regen cmd] mvn net.adamcin:snagjar-maven-plugin:1.3.2:dependencies -P 'adobe-public' -Drecursive -Dscope=provided -DgeneratePoms -DmergeVersions=high -DsnagFile=/Users/ryankeenan/workspace/AEM-instances/acs-commons/asset-share/crx-quickstart</description>
@@ -1208,7 +1208,9 @@
             <dependency>
                 <groupId>com.adobe.xmp</groupId>
                 <artifactId>xmpcore</artifactId>
-                <version>5.0.30</version>
+                <version>6.0.6</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.0.30</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1358,7 +1360,9 @@
             <dependency>
                 <groupId>com.day.cq</groupId>
                 <artifactId>cq-commons</artifactId>
-                <version>5.9.22</version>
+                <version>5.9.24</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.9.22</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1502,7 +1506,9 @@
             <dependency>
                 <groupId>com.day.cq</groupId>
                 <artifactId>cq-tagging</artifactId>
-                <version>5.9.8</version>
+                <version>5.9.10</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.9.8</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1532,7 +1538,9 @@
             <dependency>
                 <groupId>com.day.cq.dam</groupId>
                 <artifactId>cq-dam-api</artifactId>
-                <version>5.9.46</version>
+                <version>5.9.48</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.9.46</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1544,7 +1552,9 @@
             <dependency>
                 <groupId>com.day.cq.dam</groupId>
                 <artifactId>cq-dam-commons</artifactId>
-                <version>5.9.108</version>
+                <version>5.9.118</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.9.108</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1682,7 +1692,9 @@
             <dependency>
                 <groupId>com.day.cq.wcm</groupId>
                 <artifactId>cq-wcm-api</artifactId>
-                <version>5.10.44</version>
+                <version>5.10.46</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.10.44</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1718,7 +1730,9 @@
             <dependency>
                 <groupId>com.day.cq.wcm</groupId>
                 <artifactId>cq-wcm-foundation</artifactId>
-                <version>5.9.108</version>
+                <version>5.9.114</version>
+                <!--Updated version for 6.2 SP1 support-->
+                <!--<version>5.9.108</version>-->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -3185,10 +3199,17 @@
                 <version>1.7.6</version>
                 <scope>provided</scope>
             </dependency>
+            <!--Updated groupId, artifactId and version for 6.2 SP1 support-->
+            <!--<dependency>-->
+                <!--<groupId>com.day.cq</groupId>-->
+                <!--<artifactId>cq-xssprotection</artifactId>-->
+                <!--<version>5.5.68</version>-->
+                <!--<scope>provided</scope>-->
+            <!--</dependency>-->
             <dependency>
-                <groupId>com.day.cq</groupId>
-                <artifactId>cq-xssprotection</artifactId>
-                <version>5.5.68</version>
+                <groupId>com.adobe.granite</groupId>
+                <artifactId>com.adobe.granite.xssprotection</artifactId>
+                <version>5.5.72</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>

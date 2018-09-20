@@ -25,7 +25,7 @@
 
     <groupId>com.adobe.aem.commons</groupId>
     <artifactId>assetshare</artifactId>
-    <version>1.6.3-SNAPSHOT</version>
+    <version>1.0.62-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Asset Share Commons - Reactor Project</name>
@@ -236,7 +236,7 @@
             <dependency>
                 <groupId>com.adobe.aem.commons</groupId>
                 <artifactId>assetshare.platform</artifactId>
-                <version>1.6.3-SNAPSHOT</version>
+                <version>1.0.62-SNAPSHOT</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
