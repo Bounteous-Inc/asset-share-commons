@@ -35,6 +35,8 @@ import com.adobe.aem.commons.assetshare.components.actions.share.ShareService;
 import com.adobe.aem.commons.assetshare.configuration.AssetDetailsResolver;
 import com.adobe.aem.commons.assetshare.configuration.Config;
 import com.adobe.aem.commons.assetshare.content.AssetModel;
+import com.adobe.aem.commons.assetshare.search.providers.request.ResourceOverridingRequestWrapper;
+import com.adobe.aem.commons.assetshare.search.results.AssetResult;
 import com.adobe.aem.commons.assetshare.util.EmailService;
 import com.adobe.granite.security.user.UserProperties;
 import com.adobe.granite.security.user.UserPropertiesManager;
@@ -44,6 +46,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.api.security.user.Authorizable;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.adapter.AdapterManager;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.scripting.SlingBindings;
@@ -101,6 +104,9 @@ public class EmailShareServiceImpl implements ShareService {
 
     @Reference
     private XSSAPI xssAPI;
+
+    @Reference
+    private AdapterManager adapterManager;
 
     @Override
     public boolean accepts(final SlingHttpServletRequest request) {
@@ -166,8 +172,8 @@ public class EmailShareServiceImpl implements ShareService {
         for (final String assetPath : assetPaths) {
             final Resource assetResource = config.getResourceResolver().getResource(assetPath);
             if (assetResource != null && DamUtil.isAsset(assetResource)) {
-//                final AssetModel asset = modelFactory.getModelFromWrappedRequest(config.getRequest(), assetResource, AssetModel.class);
-                final AssetModel asset = null;
+                ResourceOverridingRequestWrapper wrapper = new ResourceOverridingRequestWrapper(config.getRequest(), assetResource, adapterManager);
+                final AssetResult asset = wrapper.adaptTo(AssetResult.class);
                 String url = assetDetailsResolver.getFullUrl(config, asset);
 
                 if (StringUtils.isBlank(url)) {

@@ -172,7 +172,7 @@ public class ConfigImpl implements Config {
         if (placeholderResource != null) {
             ResourceOverridingRequestWrapper wrapper = new ResourceOverridingRequestWrapper(request, placeholderResource, adapterManager);
             final AssetResult asset = wrapper.adaptTo(AssetResult.class);
-            return null;
+            return asset;
         } else {
             return null;
         }
