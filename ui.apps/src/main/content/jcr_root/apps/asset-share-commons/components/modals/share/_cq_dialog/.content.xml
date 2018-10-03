@@ -194,7 +194,7 @@
                                             required="{Boolean}true"/>
                                     <email-template-path
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                             emptyText="/etc/notification/email"
                                             fieldLabel="E-mail Template"
                                             filter="hierarchy"

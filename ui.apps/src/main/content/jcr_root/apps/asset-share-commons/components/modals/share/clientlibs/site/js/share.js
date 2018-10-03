@@ -94,13 +94,9 @@ jQuery((function($, ns, semanticModal) {
 
             $("body").on("submit", ns.Elements.selector([SHARE_MODAL_ID]), function (e) {
                 var formEl = $(this);
-
                 e.preventDefault();
                 e.stopPropagation();
-
-                if (formEl.form('is valid')) {
-                    submit(formEl);
-                }
+                submit(formEl);
             });
         }()));
 

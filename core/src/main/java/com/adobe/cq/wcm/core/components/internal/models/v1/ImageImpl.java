@@ -51,7 +51,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class})
-public class ImageImpl implements Image {
+public class ImageImpl {
 
     public static final String RESOURCE_TYPE = "core/wcm/components/image/v1/image";
     private static final String DEFAULT_EXTENSION = "jpeg";
@@ -125,8 +125,8 @@ public class ImageImpl implements Image {
     @PostConstruct
     protected void initModel() {
         mimeType = MIME_TYPE_IMAGE_JPEG;
-        displayPopupTitle = properties.get(PN_DISPLAY_POPUP_TITLE, currentStyle.get(PN_DISPLAY_POPUP_TITLE, false));
-        isDecorative = properties.get(PN_IS_DECORATIVE, currentStyle.get(PN_IS_DECORATIVE, false));
+        displayPopupTitle = properties.get(Image.PN_DISPLAY_POPUP_TITLE, currentStyle.get(Image.PN_DISPLAY_POPUP_TITLE, false));
+        isDecorative = properties.get(Image.PN_IS_DECORATIVE, currentStyle.get(Image.PN_IS_DECORATIVE, false));
         Asset asset = null;
         if (StringUtils.isNotEmpty(fileReference)) {
             // the image is coming from DAM
@@ -174,7 +174,7 @@ public class ImageImpl implements Image {
             if (extension.equalsIgnoreCase("tif") || extension.equalsIgnoreCase("tiff")) {
                 extension = DEFAULT_EXTENSION;
             }
-            disableLazyLoading = currentStyle.get(PN_DESIGN_LAZY_LOADING_ENABLED, false);
+            disableLazyLoading = currentStyle.get(Image.PN_DESIGN_LAZY_LOADING_ENABLED, false);
             int index = 0;
             Template template = currentPage.getTemplate();
             if (template != null && resource.getPath().startsWith(template.getPath())) {
@@ -220,44 +220,37 @@ public class ImageImpl implements Image {
         }
     }
 
-    @Override
     public String getSrc() {
         return src;
     }
 
-    @Override
     public boolean displayPopupTitle() {
         return displayPopupTitle;
     }
 
-    @Override
     public String getAlt() {
         return alt;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public String getLink() {
         return linkURL;
     }
 
-    @Override
     public String getFileReference() {
         return fileReference;
     }
 
-    @Override
     public String getJson() {
         return json;
     }
 
     private Set<Integer> getSupportedRenditionWidths() {
         Set<Integer> allowedRenditionWidths = new TreeSet<>();
-        String[] supportedWidthsConfig = currentStyle.get(PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]);
+        String[] supportedWidthsConfig = currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]);
         for (String width : supportedWidthsConfig) {
             try {
                 allowedRenditionWidths.add(Integer.parseInt(width));
