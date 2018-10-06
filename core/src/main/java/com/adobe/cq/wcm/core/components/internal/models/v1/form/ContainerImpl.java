@@ -111,6 +111,10 @@ public class ContainerImpl implements Container {
                 redirect = contextPath + redirect;
             }
         }
+
+        if (!StringUtils.equals(request.getRequestPathInfo().getExtension(), "json")) {
+            runActionTypeInit(formStructureHelper);
+        }
     }
 
     private void runActionTypeInit(FormStructureHelper formStructureHelper) {

@@ -186,21 +186,6 @@
 							<target>/apps/asset-share-commons/install</target>
 						</embedded>
 						<embedded>
-							<groupId>com.fasterxml.jackson.core</groupId>
-							<artifactId>jackson-databind</artifactId>
-							<target>/apps/asset-share-commons/install</target>
-						</embedded>
-						<embedded>
-							<groupId>com.fasterxml.jackson.core</groupId>
-							<artifactId>jackson-annotations</artifactId>
-							<target>/apps/asset-share-commons/install</target>
-						</embedded>
-						<embedded>
-							<groupId>com.fasterxml.jackson.core</groupId>
-							<artifactId>jackson-core</artifactId>
-							<target>/apps/asset-share-commons/install</target>
-						</embedded>
-						<embedded>
 							<groupId>org.apache.commons</groupId>
 							<artifactId>commons-collections4</artifactId>
 							<target>/apps/asset-share-commons/install</target>
