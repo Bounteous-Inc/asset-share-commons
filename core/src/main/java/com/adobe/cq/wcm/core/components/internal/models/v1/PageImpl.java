@@ -47,7 +47,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @Model(adaptables = SlingHttpServletRequest.class, adapters = {Page.class})
-public class PageImpl implements Page {
+public class PageImpl {
 
     protected static final String RESOURCE_TYPE = "core/wcm/components/page/v1/page";
 
@@ -124,13 +124,10 @@ public class PageImpl implements Page {
         return templateName;
     }
 
-
-    @Override
     public String getLanguage() {
         return currentPage == null ? Locale.getDefault().toLanguageTag() : currentPage.getLanguage(false).toLanguageTag();
     }
 
-    @Override
     public Calendar getLastModifiedDate() {
         if (lastModifiedDate == null) {
             lastModifiedDate = pageProperties.get(NameConstants.PN_PAGE_LAST_MOD, Calendar.class);
@@ -138,48 +135,41 @@ public class PageImpl implements Page {
         return lastModifiedDate;
     }
 
-    @Override
     public String[] getKeywords() {
         return Arrays.copyOf(keywords, keywords.length);
     }
 
-    @Override
     public String getDesignPath() {
         return designPath;
     }
 
-    @Override
     public String getStaticDesignPath() {
         return staticDesignPath;
     }
 
-    @Override
     public Map<String, String> getFavicons() {
         return favicons;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public String getTemplateName() {
         return templateName;
     }
 
-    @Override
     public String[] getClientLibCategories() {
         return Arrays.copyOf(clientLibCategories, clientLibCategories.length);
     }
 
     protected void loadFavicons(String designPath) {
-        favicons.put(PN_FAVICON_ICO, getFaviconPath(designPath, FN_FAVICON_ICO));
-        favicons.put(PN_FAVICON_PNG, getFaviconPath(designPath, FN_FAVICON_PNG));
-        favicons.put(PN_TOUCH_ICON_120, getFaviconPath(designPath, FN_TOUCH_ICON_120));
-        favicons.put(PN_TOUCH_ICON_152, getFaviconPath(designPath, FN_TOUCH_ICON_152));
-        favicons.put(PN_TOUCH_ICON_60, getFaviconPath(designPath, FN_TOUCH_ICON_60));
-        favicons.put(PN_TOUCH_ICON_76, getFaviconPath(designPath, FN_TOUCH_ICON_76));
+        favicons.put(Page.PN_FAVICON_ICO, getFaviconPath(designPath, Page.FN_FAVICON_ICO));
+        favicons.put(Page.PN_FAVICON_PNG, getFaviconPath(designPath, Page.FN_FAVICON_PNG));
+        favicons.put(Page.PN_TOUCH_ICON_120, getFaviconPath(designPath, Page.FN_TOUCH_ICON_120));
+        favicons.put(Page.PN_TOUCH_ICON_152, getFaviconPath(designPath, Page.FN_TOUCH_ICON_152));
+        favicons.put(Page.PN_TOUCH_ICON_60, getFaviconPath(designPath, Page.FN_TOUCH_ICON_60));
+        favicons.put(Page.PN_TOUCH_ICON_76, getFaviconPath(designPath, Page.FN_TOUCH_ICON_76));
     }
 
     protected String getFaviconPath(String designPath, String faviconName) {

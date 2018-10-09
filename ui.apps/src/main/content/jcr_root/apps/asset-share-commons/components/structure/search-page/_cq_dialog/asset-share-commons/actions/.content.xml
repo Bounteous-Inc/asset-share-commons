@@ -42,7 +42,7 @@
                                 text="Enable Downloading"/>
                         <download
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                 fieldDescription="Path to download action page."
                                 fieldLabel="Download"
                                 name="./config/actions/download/path"
@@ -56,7 +56,7 @@
                                 text="Enable License Management"/>
                         <license
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                 fieldDescription="Path to license agreement action page."
                                 fieldLabel="License Agreement"
                                 name="./config/actions/license/path"
@@ -70,7 +70,7 @@
                                 text="Enable Sharing"/>
                         <share
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                 fieldDescription="Path to share action page."
                                 fieldLabel="Share"
                                 name="./config/actions/share/path"
@@ -84,7 +84,7 @@
                                 text="Enable the Cart"/>
                         <cart
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                 fieldDescription="Path to cart action page."
                                 fieldLabel="Cart"
                                 name="./config/actions/cart/path"
