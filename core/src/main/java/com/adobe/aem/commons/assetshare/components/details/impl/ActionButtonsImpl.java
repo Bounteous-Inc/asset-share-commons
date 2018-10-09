@@ -32,7 +32,6 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {ActionButtons.class},
-        resourceType = ActionButtonsImpl.RESOURCE_TYPE,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class ActionButtonsImpl extends AbstractEmptyTextComponent implements ActionButtons {

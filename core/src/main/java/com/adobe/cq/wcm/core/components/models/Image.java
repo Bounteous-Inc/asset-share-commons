@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.osgi.annotation.versioning.ConsumerType;
 
 import javax.annotation.Nonnull;
@@ -28,7 +26,7 @@ import java.util.List;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface Image extends ComponentExporter {
+public interface Image {
 
     /**
      * Name of the configuration policy property that will store the allowed rendition widths for an image.
@@ -188,7 +186,6 @@ public interface Image extends ComponentExporter {
      * @return the file reference of the current image, if one exists, {@code null} otherwise
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
-    @JsonIgnore
     default String getFileReference() {
         throw new UnsupportedOperationException();
     }
@@ -207,7 +204,6 @@ public interface Image extends ComponentExporter {
      * @deprecated since 12.1.0
      */
     @Deprecated
-    @JsonIgnore
     default String getJson() {
         throw new UnsupportedOperationException();
     }
@@ -252,16 +248,6 @@ public interface Image extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 12.4.0
      */
     default List<ImageArea> getAreas() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 

@@ -16,7 +16,7 @@
 package com.adobe.cq.wcm.core.components.internal.servlets;
 
 import com.adobe.cq.wcm.core.components.internal.models.v1.AbstractImageDelegatingModel;
-import com.adobe.granite.ui.components.ExpressionCustomizer;
+import com.adobe.cq.wcm.core.components.internal.servlets.util.ExpressionCustomizer;
 import com.adobe.granite.ui.components.rendercondition.RenderCondition;
 import com.adobe.granite.ui.components.rendercondition.SimpleRenderCondition;
 import com.day.cq.wcm.api.NameConstants;
@@ -26,7 +26,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.servlets.ServletResolverConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
 
@@ -40,8 +39,8 @@ import java.io.IOException;
 @Component(
         service = {Servlet.class},
         property = {
-                ServletResolverConstants.SLING_SERVLET_RESOURCE_TYPES + "=" + ImageDelegateRenderCondition.RESOURCE_TYPE,
-                ServletResolverConstants.SLING_SERVLET_METHODS + "=GET"
+                "sling.servlet.resourceTypes=" + ImageDelegateRenderCondition.RESOURCE_TYPE,
+                "sling.servlet.methods=GET"
         }
 )
 public class ImageDelegateRenderCondition extends SlingSafeMethodsServlet {

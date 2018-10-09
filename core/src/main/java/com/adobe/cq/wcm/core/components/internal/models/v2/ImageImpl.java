@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v2;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.Utils;
 import com.adobe.cq.wcm.core.components.internal.models.v1.ImageAreaImpl;
 import com.adobe.cq.wcm.core.components.internal.servlets.AdaptiveImageServlet;
@@ -27,7 +25,6 @@ import com.day.cq.dam.api.DamConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class, ComponentExporter.class}, resourceType = ImageImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class})
 public class ImageImpl extends com.adobe.cq.wcm.core.components.internal.models.v1.ImageImpl implements Image {
 
     public static final String RESOURCE_TYPE = "core/wcm/components/image/v2/image";
@@ -104,7 +100,6 @@ public class ImageImpl extends com.adobe.cq.wcm.core.components.internal.models.
             }
 
             buildAreas();
-            buildJson();
         }
     }
 
@@ -147,12 +142,12 @@ public class ImageImpl extends com.adobe.cq.wcm.core.components.internal.models.
                     break;
                 }
                 if (remainingTokens.length > 0) {
-                    String href = StringUtils.removeAll(remainingTokens[0], "\"");
+                    String href = remainingTokens[0].replaceAll("\"", "");
                     if (StringUtils.isBlank(href)) {
                         break;
                     }
-                    String target = remainingTokens.length > 1 ? StringUtils.removeAll(remainingTokens[1], "\"") : "";
-                    String alt = remainingTokens.length > 2 ? StringUtils.removeAll(remainingTokens[2], "\"") : "";
+                    String target = remainingTokens.length > 1 ? remainingTokens[1].replaceAll("\"", "") : "";
+                    String alt = remainingTokens.length > 2 ? remainingTokens[2].replaceAll("\"", "") : "";
                     String relativeCoordinates = remainingTokens.length > 3 ? remainingTokens[3] : "";
                     relativeCoordinates = StringUtils.substringBetween(relativeCoordinates, "(", ")");
                     if (href.startsWith("/")) {

@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.LanguageNavigation;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
@@ -26,7 +24,6 @@ import com.day.cq.wcm.api.designer.Style;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -39,10 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {LanguageNavigation.class, ComponentExporter.class},
-       resourceType = {LanguageNavigationImpl.RESOURCE_TYPE})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME ,
-          extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+       adapters = {LanguageNavigation.class})
 public class LanguageNavigationImpl implements LanguageNavigation {
 
     public static final String RESOURCE_TYPE = "core/wcm/components/languagenavigation/v1/languagenavigation";
@@ -86,12 +80,6 @@ public class LanguageNavigationImpl implements LanguageNavigation {
             }
         }
         return items;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return request.getResource().getResourceType();
     }
 
     private List<NavigationItem> getItems(Page root) {

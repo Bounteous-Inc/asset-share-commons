@@ -15,13 +15,10 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.Text;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
@@ -30,9 +27,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {Text.class, ComponentExporter.class},
-       resourceType = {TextImpl.RESOURCE_TYPE_V1, TextImpl.RESOURCE_TYPE_V2})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+       adapters = {Text.class})
 public class TextImpl implements Text {
 
     protected static final String RESOURCE_TYPE_V1 = "core/wcm/components/text/v1/text";
@@ -56,11 +51,5 @@ public class TextImpl implements Text {
     @Override
     public boolean isRichText() {
         return textIsRich;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return resource.getResourceType();
     }
 }

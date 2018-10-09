@@ -16,10 +16,7 @@
 
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import org.osgi.annotation.versioning.ConsumerType;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines the {@code Title} Sling Model used for the {@code /apps/core/wcm/components/title} component.
@@ -27,7 +24,7 @@ import javax.annotation.Nonnull;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface Title extends ComponentExporter {
+public interface Title {
 
     /**
      * Name of the configuration policy property that will store the default value for this title's HTML element type.
@@ -54,16 +51,6 @@ public interface Title extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
     default String getType() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

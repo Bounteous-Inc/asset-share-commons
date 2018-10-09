@@ -44,7 +44,6 @@ import java.util.List;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {DatePredicate.class},
-        resourceType = {DatePredicateImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class DatePredicateImpl extends AbstractPredicate implements DatePredicate {

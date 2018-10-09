@@ -15,9 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v2;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ContainerExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.models.v1.RedirectItemImpl;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.adobe.cq.wcm.core.components.models.Page;
@@ -29,7 +26,6 @@ import com.day.cq.wcm.api.components.ComponentContext;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
@@ -38,7 +34,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.osgi.framework.Version;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -46,8 +41,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {Page.class, ContainerExporter.class}, resourceType = PageImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {Page.class})
 public class PageImpl extends com.adobe.cq.wcm.core.components.internal.models.v1.PageImpl implements Page {
 
     protected static final String RESOURCE_TYPE = "core/wcm/components/page/v2/page";
@@ -132,18 +126,6 @@ public class PageImpl extends com.adobe.cq.wcm.core.components.internal.models.v
     public String getCssClassNames() {
         Set<String> cssClassesSet = componentContext.getCssClassNames();
         return StringUtils.join(cssClassesSet, " ");
-    }
-
-    @Nonnull
-    @Override
-    public String[] getExportedItemsOrder() {
-        return super.getExportedItemsOrder();
-    }
-
-    @Nonnull
-    @Override
-    public Map<String, ? extends ComponentExporter> getExportedItems() {
-        return super.getExportedItems();
     }
 
     @Nullable

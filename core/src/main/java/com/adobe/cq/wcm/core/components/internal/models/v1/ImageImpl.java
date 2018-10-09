@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.Utils;
 import com.adobe.cq.wcm.core.components.internal.servlets.AdaptiveImageServlet;
 import com.adobe.cq.wcm.core.components.models.Image;
@@ -29,7 +27,6 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.Template;
 import com.day.cq.wcm.api.designer.Style;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.util.Text;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -38,7 +35,6 @@ import org.apache.sling.api.resource.ResourceMetadata;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.mime.MimeTypeService;
 import org.apache.sling.commons.osgi.PropertiesUtil;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Source;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
@@ -48,19 +44,14 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class, ComponentExporter.class}, resourceType = ImageImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ImageImpl implements Image {
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {Image.class})
+public class ImageImpl {
 
     public static final String RESOURCE_TYPE = "core/wcm/components/image/v1/image";
     private static final String DEFAULT_EXTENSION = "jpeg";
@@ -134,8 +125,8 @@ public class ImageImpl implements Image {
     @PostConstruct
     protected void initModel() {
         mimeType = MIME_TYPE_IMAGE_JPEG;
-        displayPopupTitle = properties.get(PN_DISPLAY_POPUP_TITLE, currentStyle.get(PN_DISPLAY_POPUP_TITLE, false));
-        isDecorative = properties.get(PN_IS_DECORATIVE, currentStyle.get(PN_IS_DECORATIVE, false));
+        displayPopupTitle = properties.get(Image.PN_DISPLAY_POPUP_TITLE, currentStyle.get(Image.PN_DISPLAY_POPUP_TITLE, false));
+        isDecorative = properties.get(Image.PN_IS_DECORATIVE, currentStyle.get(Image.PN_IS_DECORATIVE, false));
         Asset asset = null;
         if (StringUtils.isNotEmpty(fileReference)) {
             // the image is coming from DAM
@@ -183,7 +174,7 @@ public class ImageImpl implements Image {
             if (extension.equalsIgnoreCase("tif") || extension.equalsIgnoreCase("tiff")) {
                 extension = DEFAULT_EXTENSION;
             }
-            disableLazyLoading = currentStyle.get(PN_DESIGN_LAZY_LOADING_ENABLED, false);
+            disableLazyLoading = currentStyle.get(Image.PN_DESIGN_LAZY_LOADING_ENABLED, false);
             int index = 0;
             Template template = currentPage.getTemplate();
             if (template != null && resource.getPath().startsWith(template.getPath())) {
@@ -226,72 +217,40 @@ public class ImageImpl implements Image {
                 linkURL = null;
                 alt = null;
             }
-            buildJson();
         }
     }
 
-    @Override
     public String getSrc() {
         return src;
     }
 
-    @Override
     public boolean displayPopupTitle() {
         return displayPopupTitle;
     }
 
-    @Override
     public String getAlt() {
         return alt;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public String getLink() {
         return linkURL;
     }
 
-    @Override
-    @JsonIgnore
     public String getFileReference() {
         return fileReference;
     }
 
-    @Override
-    @JsonIgnore
     public String getJson() {
         return json;
     }
 
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return resource.getResourceType();
-    }
-
-    protected void buildJson() {
-        JsonArrayBuilder smartSizesJsonBuilder = Json.createArrayBuilder();
-        for (int size : smartSizes) {
-            smartSizesJsonBuilder.add(size);
-        }
-        JsonArrayBuilder smartImagesJsonBuilder = Json.createArrayBuilder();
-        for (String image : smartImages) {
-            smartImagesJsonBuilder.add(image);
-        }
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add(JSON_SMART_IMAGES, smartImagesJsonBuilder);
-        jsonObjectBuilder.add(JSON_SMART_SIZES, smartSizesJsonBuilder);
-        jsonObjectBuilder.add(JSON_LAZY_ENABLED, !disableLazyLoading);
-        json = jsonObjectBuilder.build().toString();
-    }
-
     private Set<Integer> getSupportedRenditionWidths() {
         Set<Integer> allowedRenditionWidths = new TreeSet<>();
-        String[] supportedWidthsConfig = currentStyle.get(PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]);
+        String[] supportedWidthsConfig = currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]);
         for (String width : supportedWidthsConfig) {
             try {
                 allowedRenditionWidths.add(Integer.parseInt(width));

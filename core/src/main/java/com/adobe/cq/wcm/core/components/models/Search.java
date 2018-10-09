@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -24,7 +22,7 @@ import javax.annotation.Nonnull;
  *
  * @since com.adobe.cq.wcm.core.components.models 12.2.0
  */
-public interface Search extends ComponentExporter {
+public interface Search {
 
     /**
      * Name of the resource / configuration policy property that defines the site's search root from which to search.
@@ -76,16 +74,6 @@ public interface Search extends ComponentExporter {
      */
     @Nonnull
     default String getRelativePath() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

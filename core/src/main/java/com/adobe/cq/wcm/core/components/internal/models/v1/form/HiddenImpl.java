@@ -15,15 +15,12 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1.form;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.form.FormConstants;
 import com.adobe.cq.wcm.core.components.models.form.Field;
 import com.day.cq.wcm.foundation.forms.FormStructureHelperFactory;
 import com.day.cq.wcm.foundation.forms.FormsHelper;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -32,10 +29,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.PostConstruct;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {Field.class, ComponentExporter.class},
-       resourceType = {FormConstants.RT_CORE_FORM_HIDDEN_V1, FormConstants.RT_CORE_FORM_HIDDEN_V2})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-          extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+       adapters = {Field.class})
 public class HiddenImpl extends AbstractFieldImpl {
 
     static final String PROP_NAME_DEFAULT = "hidden";
@@ -53,7 +47,7 @@ public class HiddenImpl extends AbstractFieldImpl {
 
     @PostConstruct
     private void initModel() {
-        slingRequest.setAttribute(FormsHelper.REQ_ATTR_FORM_STRUCTURE_HELPER,
+        slingRequest.setAttribute("cq.form.formstructurehelper",
                 formStructureHelperFactory.getFormStructureHelper(resource));
         String[] prefillValues = FormsHelper.getValues(slingRequest, resource);
         if (prefillValues == null || prefillValues.length == 0) {

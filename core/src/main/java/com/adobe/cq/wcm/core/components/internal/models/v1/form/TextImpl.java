@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1.form;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.internal.form.FormConstants;
 import com.adobe.cq.wcm.core.components.models.form.Text;
 import com.day.cq.wcm.foundation.forms.FormStructureHelperFactory;
@@ -24,7 +22,6 @@ import com.day.cq.wcm.foundation.forms.FormsHelper;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -34,11 +31,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {Text.class, ComponentExporter.class},
-       resourceType = {FormConstants.RT_CORE_FORM_TEXT_V1, FormConstants.RT_CORE_FORM_TEXT_V2})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-          extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class TextImpl extends AbstractFieldImpl implements Text, ComponentExporter {
+       adapters = {Text.class})
+public class TextImpl extends AbstractFieldImpl implements Text {
 
     private static final String ID_PREFIX = "form-text";
     private static final String PROP_NAME_DEFAULT = "text";
@@ -104,7 +98,7 @@ public class TextImpl extends AbstractFieldImpl implements Text, ComponentExport
 
     @PostConstruct
     private void initModel() {
-        slingRequest.setAttribute(FormsHelper.REQ_ATTR_FORM_STRUCTURE_HELPER,
+        slingRequest.setAttribute("cq.form.formstructurehelper",
                 formStructureHelperFactory.getFormStructureHelper(resource));
         prefillValues = FormsHelper.getValues(slingRequest, resource);
         if (prefillValues == null) {

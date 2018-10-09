@@ -42,7 +42,6 @@ import java.util.*;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {Tags.class},
-        resourceType = {TagsImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class TagsImpl extends AbstractEmptyTextComponent implements Tags {

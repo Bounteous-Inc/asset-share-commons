@@ -15,12 +15,7 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models.form;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ContainerExporter;
 import org.osgi.annotation.versioning.ConsumerType;
-
-import javax.annotation.Nonnull;
-import java.util.Map;
 
 /**
  * Defines the form {@code Container} Sling Model used for the {@code /apps/core/wcm/components/form/container} component.
@@ -28,7 +23,7 @@ import java.util.Map;
  * @since com.adobe.cq.wcm.core.components.models.form 13.0.0
  */
 @ConsumerType
-public interface Container extends ContainerExporter {
+public interface Container {
 
     /**
      * Returns the form's submit method (the value of the form's HTML <code>method</code> attribute).
@@ -101,36 +96,6 @@ public interface Container extends ContainerExporter {
      * @since com.adobe.cq.wcm.core.components.models.form 13.0.0; marked <code>default</code> in 14.1.0
      */
     default String getRedirect() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ContainerExporter#getExportedItemsOrder()
-     * @since com.adobe.cq.wcm.core.components.models.form 14.2.0
-     */
-    @Nonnull
-    @Override
-    default String[] getExportedItemsOrder() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ContainerExporter#getExportedItems()
-     * @since com.adobe.cq.wcm.core.components.models.form 14.2.0
-     */
-    @Nonnull
-    @Override
-    default Map<String, ? extends ComponentExporter> getExportedItems() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ContainerExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models.form 14.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

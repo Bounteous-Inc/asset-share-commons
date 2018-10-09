@@ -45,8 +45,7 @@ import java.util.regex.Pattern;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {Renditions.class},
-        resourceType = {RenditionsImpl.RESOURCE_TYPE}
+        adapters = {Renditions.class}
 )
 public class RenditionsImpl extends AbstractEmptyTextComponent implements Renditions {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/details/renditions";

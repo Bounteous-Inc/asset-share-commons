@@ -42,7 +42,6 @@ libsScript from all referenced [cloud service configurations](https://docs.adobe
 ### Use Object
 The Page component uses the following use objects:
 * `com.adobe.cq.wcm.core.components.models.Page`
-* `com.adobe.cq.wcm.core.components.models.SocialMediaHelper`
 * `com.day.cq.wcm.foundation.TemplatedContainer`
 
 ### Component Policy Configuration Properties
@@ -70,16 +69,10 @@ The following properties are written to JCR for this Page component and are expe
 15. `./sling:alias` - defines a Sling alias for this page, so that the page can be accessed at a different resource path
 16. `./cq:allowedTemplates` - defines a template or a list of templates that the page should use
 17. `./cq:exportTemplate` - defines the template used for exporting this page for content synchronisation
-18. `./socialMedia` - defines the enabled social media configurations
-19. `./variantPath` - allows defining the social media variation experience fragment to be used for generating page meta data for social
-media
 20. `./cq:contextHubPath` - defines the Context Path configuration used by this page
 21. `./cq:contextHubSegmentsPath` - defines the Context Path Segments Path
 
 ## Client Libraries
-The component provides a `core.wcm.components.page.v1.sharing` client library category that contains the JavaScript
-required to enable social sharing. It should be added to a relevant site client library using the `embed` property.
-
 It also provides a `core.wcm.components.page.v1.editor` editor client library category that includes
 JavaScript handling for dialog interaction. It is already included by its edit dialog.
 

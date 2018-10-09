@@ -47,7 +47,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <return-path
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                             fieldLabel="Fallback Back Button Link"
                                             fieldDescription="Fallback path used to populate the back button if the originating Search Page cannot be auto-detected. If not provided the closest Asset Share Search Page will be used."
                                             name="./returnPath"

@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.List;
 import com.day.cq.commons.RangeIterator;
 import com.day.cq.search.Predicate;
@@ -28,7 +26,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.designer.Style;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +34,6 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -56,9 +52,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
-@Model(adaptables = SlingHttpServletRequest.class, adapters = {List.class, ComponentExporter.class}, resourceType = ListImpl.RESOURCE_TYPE)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ListImpl implements List {
+@Model(adaptables = SlingHttpServletRequest.class, adapters = {List.class})
+public class ListImpl {
 
     protected static final String RESOURCE_TYPE = "core/wcm/components/list/v1/list";
 
@@ -126,20 +121,19 @@ public class ListImpl implements List {
 
     private void readProperties() {
         // read edit config properties
-        startIn = properties.get(PN_SEARCH_IN, currentPage.getPath());
-        sortOrder = SortOrder.fromString(properties.get(PN_SORT_ORDER, SortOrder.ASC.value));
-        orderBy = OrderBy.fromString(properties.get(PN_ORDER_BY, StringUtils.EMPTY));
+        startIn = properties.get(List.PN_SEARCH_IN, currentPage.getPath());
+        sortOrder = SortOrder.fromString(properties.get(List.PN_SORT_ORDER, SortOrder.ASC.value));
+        orderBy = OrderBy.fromString(properties.get(List.PN_ORDER_BY, StringUtils.EMPTY));
 
         // read design config properties
-        showDescription = properties.get(PN_SHOW_DESCRIPTION, currentStyle.get(PN_SHOW_DESCRIPTION, SHOW_DESCRIPTION_DEFAULT));
+        showDescription = properties.get(List.PN_SHOW_DESCRIPTION, currentStyle.get(List.PN_SHOW_DESCRIPTION, SHOW_DESCRIPTION_DEFAULT));
         showModificationDate = properties.get(
-                PN_SHOW_MODIFICATION_DATE, currentStyle.get(PN_SHOW_MODIFICATION_DATE, SHOW_MODIFICATION_DATE_DEFAULT));
-        linkItems = properties.get(PN_LINK_ITEMS, currentStyle.get(PN_LINK_ITEMS, LINK_ITEMS_DEFAULT));
-        dateFormatString = properties.get(PN_DATE_FORMAT, currentStyle.get(PN_DATE_FORMAT, PN_DATE_FORMAT_DEFAULT));
+                List.PN_SHOW_MODIFICATION_DATE, currentStyle.get(List.PN_SHOW_MODIFICATION_DATE, SHOW_MODIFICATION_DATE_DEFAULT));
+        linkItems = properties.get(List.PN_LINK_ITEMS, currentStyle.get(List.PN_LINK_ITEMS, LINK_ITEMS_DEFAULT));
+        dateFormatString = properties.get(List.PN_DATE_FORMAT, currentStyle.get(List.PN_DATE_FORMAT, PN_DATE_FORMAT_DEFAULT));
 
     }
 
-    @Override
     public Collection<Page> getItems() {
         if (listItems == null) {
             Source listType = getListType();
@@ -148,37 +142,24 @@ public class ListImpl implements List {
         return listItems;
     }
 
-    @Override
-    @JsonProperty("linkItems")
     public boolean linkItems() {
         return linkItems;
     }
 
-    @Override
-    @JsonProperty("showDescription")
     public boolean showDescription() {
         return showDescription;
     }
 
-    @Override
-    @JsonProperty("showModificationDate")
     public boolean showModificationDate() {
         return showModificationDate;
     }
 
-    @Override
     public String getDateFormatString() {
         return dateFormatString;
     }
 
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return resource.getResourceType();
-    }
-
     protected Source getListType() {
-        String listFromValue = properties.get(PN_SOURCE, currentStyle.get(PN_SOURCE, StringUtils.EMPTY));
+        String listFromValue = properties.get(List.PN_SOURCE, currentStyle.get(List.PN_SOURCE, StringUtils.EMPTY));
         return Source.fromString(listFromValue);
     }
 
@@ -207,7 +188,7 @@ public class ListImpl implements List {
 
     private void populateStaticListItems() {
         listItems = new ArrayList<>();
-        String[] pagesPaths = properties.get(PN_PAGES, new String[0]);
+        String[] pagesPaths = properties.get(List.PN_PAGES, new String[0]);
         for (String path : pagesPaths) {
             Page page = pageManager.getContainingPage(path);
             if (page != null) {
@@ -218,7 +199,7 @@ public class ListImpl implements List {
 
     private void populateChildListItems() {
         listItems = new ArrayList<>();
-        Page rootPage = getRootPage(PN_PARENT_PAGE);
+        Page rootPage = getRootPage(List.PN_PARENT_PAGE);
         if (rootPage != null) {
             collectChildren(rootPage.getDepth(), rootPage);
         }
@@ -237,10 +218,10 @@ public class ListImpl implements List {
 
     private void populateTagListItems() {
         listItems = new ArrayList<>();
-        String[] tags = properties.get(PN_TAGS, new String[0]);
-        boolean matchAny = properties.get(PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
+        String[] tags = properties.get(List.PN_TAGS, new String[0]);
+        boolean matchAny = properties.get(List.PN_TAGS_MATCH, TAGS_MATCH_ANY_VALUE).equals(TAGS_MATCH_ANY_VALUE);
         if (ArrayUtils.isNotEmpty(tags)) {
-            Page rootPage = getRootPage(PN_TAGS_PARENT_PAGE);
+            Page rootPage = getRootPage(List.PN_TAGS_PARENT_PAGE);
             if (rootPage != null) {
                 TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
                 if (tagManager != null) {

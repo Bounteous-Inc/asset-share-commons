@@ -49,7 +49,7 @@
                                             text="Leave these fields blank to inherit from page hierarchy"/>
                                     <logo-path
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                             fieldDescription="Path to logo image."
                                             fieldLabel="Logo Path"
                                             name="./logoPath"/>
@@ -60,7 +60,7 @@
                                             name="./jcr:title"/>
                                     <home-page-path
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                             fieldDescription="The home page for this Asset Share. When present the Logo will be hyperlinked to this page."
                                             fieldLabel="Home Page Path"
                                             name="./rootPath"
@@ -108,7 +108,7 @@
                                                         name="text"/>
                                                 <path
                                                         jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                                         fieldLabel="Page or URL"
                                                         name="path"
                                                         rootPath="/content"/>

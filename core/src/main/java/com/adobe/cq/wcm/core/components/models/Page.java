@@ -15,12 +15,8 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ContainerExporter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.osgi.annotation.versioning.ConsumerType;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Calendar;
 import java.util.Map;
@@ -31,7 +27,7 @@ import java.util.Map;
  * @since com.adobe.cq.wcm.core.components.models 11.0.0
  */
 @ConsumerType
-public interface Page extends ContainerExporter {
+public interface Page {
 
     /**
      * Key used for the regular favicon file.
@@ -163,7 +159,6 @@ public interface Page extends ContainerExporter {
      * @return an array of keywords represented as {@link String}s; the array can be empty if no keywords have been defined for the page
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
-    @JsonIgnore
     default String[] getKeywords() {
         throw new UnsupportedOperationException();
     }
@@ -231,7 +226,6 @@ public interface Page extends ContainerExporter {
      * template has no client libraries
      * @since com.adobe.cq.wcm.core.components.models 11.0.0; marked <code>default</code> in 12.1.0
      */
-    @JsonIgnore
     default String[] getClientLibCategories() {
         throw new UnsupportedOperationException();
     }
@@ -285,36 +279,6 @@ public interface Page extends ContainerExporter {
      * @since com.adobe.cq.wcm.core.components.models 12.3.0
      */
     default boolean hasCloudconfigSupport() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ContainerExporter#getExportedItemsOrder()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String[] getExportedItemsOrder() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ContainerExporter#getExportedItems()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default Map<String, ? extends ComponentExporter> getExportedItems() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ContainerExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models 12.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 

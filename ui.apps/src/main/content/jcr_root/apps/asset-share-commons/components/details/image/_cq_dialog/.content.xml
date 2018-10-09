@@ -67,7 +67,7 @@
 
                                     <fallback-src
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                             name="./fallbackSrc"
                                             fieldLabel="Fallback Image Src"
                                             fieldDescription="Path or URL to an image to use if the Computed Property or Rendition Names cannot resolve an image src."/>

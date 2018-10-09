@@ -20,18 +20,21 @@ import com.adobe.cq.wcm.core.components.models.form.Button;
 import com.day.cq.wcm.foundation.forms.FormStructureHelper;
 import com.day.cq.wcm.foundation.forms.FormsConstants;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.scripting.api.resource.ScriptingResourceResolverProvider;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component(
         immediate = true,
@@ -41,8 +44,10 @@ public class FormStructureHelperImpl implements FormStructureHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FormStructureHelperImpl.class.getName());
 
+    private static final String SUBSERVICE_NAME = "form-resource-resolver";
+
     @Reference
-    private ScriptingResourceResolverProvider scriptingResourceResolverProvider;
+    private ResourceResolverFactory resolverFactory;
 
     @Override
     public Resource getFormResource(Resource resource) {
@@ -105,14 +110,16 @@ public class FormStructureHelperImpl implements FormStructureHelper {
         if (resource.getResourceType().startsWith(FormConstants.RT_CORE_FORM_PREFIX)) {
             return true;
         } else {
-            if (scriptingResourceResolverProvider != null) {
-                final ResourceResolver scriptResourceResolver = scriptingResourceResolverProvider.getRequestScopedResourceResolver();
+            Map<String, Object> params = new HashMap<>();
+            params.put(ResourceResolverFactory.SUBSERVICE, SUBSERVICE_NAME);
+            ResourceResolver scriptResourceResolver = null;
+            try {
+                scriptResourceResolver = resolverFactory.getServiceResourceResolver(params);
                 if (ifFormResourceSuperType(scriptResourceResolver, resource)) {
                     return true;
                 }
-            } else {
-                LOGGER.warn("Unable to get reference of ScriptingResourceResolverProvider. Couldn't check search path of {} ",
-                        resource.getPath());
+            } catch (LoginException e) {
+                LOGGER.error("Error logging in service user " + SUBSERVICE_NAME);
             }
         }
         return false;

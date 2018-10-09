@@ -15,10 +15,7 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.models.form;
 
-import com.adobe.cq.export.json.ComponentExporter;
 import org.osgi.annotation.versioning.ConsumerType;
-
-import javax.annotation.Nonnull;
 
 /**
  * A base interface to be extended by all the different types of form fields.
@@ -26,7 +23,7 @@ import javax.annotation.Nonnull;
  * @since com.adobe.cq.wcm.core.components.models.form 13.0.0
  */
 @ConsumerType
-public interface Field extends ComponentExporter {
+public interface Field {
 
     /**
      * Returns an unique identifier for this field.
@@ -87,16 +84,6 @@ public interface Field extends ComponentExporter {
      * @since com.adobe.cq.wcm.core.components.models.form 13.0.0; marked <code>default</code> in 14.1.0
      */
     default String getHelpMessage() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @see ComponentExporter#getExportedType()
-     * @since com.adobe.cq.wcm.core.components.models.form 14.2.0
-     */
-    @Nonnull
-    @Override
-    default String getExportedType() {
         throw new UnsupportedOperationException();
     }
 }

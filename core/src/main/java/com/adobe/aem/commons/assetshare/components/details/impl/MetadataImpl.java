@@ -41,7 +41,6 @@ import java.util.Locale;
 @Model(
         adaptables = SlingHttpServletRequest.class,
         adapters = {Metadata.class},
-        resourceType = {MetadataImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class MetadataImpl extends AbstractEmptyTextComponent implements Metadata {

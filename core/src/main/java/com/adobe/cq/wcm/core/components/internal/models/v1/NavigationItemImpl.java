@@ -17,7 +17,6 @@ package com.adobe.cq.wcm.core.components.internal.models.v1;
 
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.sling.api.SlingHttpServletRequest;
 
 import java.util.Collections;
@@ -37,7 +36,6 @@ public class NavigationItemImpl extends PageListItemImpl implements NavigationIt
     }
 
     @Override
-    @JsonIgnore
     public Page getPage() {
         return page;
     }

@@ -89,10 +89,4 @@ public abstract class AbstractFieldImpl implements Field {
         }
         return title;
     }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return resource.getResourceType();
-    }
 }

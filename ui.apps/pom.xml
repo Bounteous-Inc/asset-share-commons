@@ -25,7 +25,7 @@
 	<parent>
 		<groupId>com.adobe.aem.commons</groupId>
 		<artifactId>assetshare</artifactId>
-		<version>1.6.3-SNAPSHOT</version>
+		<version>1.0.62-SNAPSHOT</version>
 	</parent>
 
 	<!-- ====================================================================== -->
@@ -84,17 +84,30 @@
 			<artifactId>org.apache.sling.scripting.jsp.taglib</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.adobe.aem</groupId>
-			<artifactId>uber-jar</artifactId>
-			<classifier>apis</classifier>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -110,6 +123,13 @@
 			<resource>
 				<directory>src/main/content/META-INF/vault/definition</directory>
 				<targetPath>../vault-work/META-INF/vault/definition</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/content/META-INF/vault</directory>
+				<includes>
+					<include>nodetypes.cnd</include>
+				</includes>
+				<targetPath>../vault-work/META-INF/vault</targetPath>
 			</resource>
 		</resources>
 
@@ -140,6 +160,7 @@
 						<exclude>**/extensions/**/*.js</exclude>
 						<exclude>**/vendor/**/*.js</exclude>
 						<exclude>**/clientlib-theme/**/*.js</exclude>
+						<exclude>**/core/wcm/**/*.js</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -162,6 +183,11 @@
 					<embeddeds>
 						<embedded>
 							<artifactId>assetshare.core</artifactId>
+							<target>/apps/asset-share-commons/install</target>
+						</embedded>
+						<embedded>
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-collections4</artifactId>
 							<target>/apps/asset-share-commons/install</target>
 						</embedded>
 					</embeddeds>

@@ -15,8 +15,6 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 package com.adobe.cq.wcm.core.components.internal.models.v1;
 
-import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.Search;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -25,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -34,10 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-       adapters = {Search.class, ComponentExporter.class},
-       resourceType = {SearchImpl.RESOURCE_TYPE})
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME ,
-          extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+       adapters = {Search.class})
 public class SearchImpl implements Search {
 
     protected static final String RESOURCE_TYPE = "core/wcm/components/search/v1/search";
@@ -90,12 +84,6 @@ public class SearchImpl implements Search {
     @Override
     public String getRelativePath() {
         return relativePath;
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return request.getResource().getResourceType();
     }
 
 }

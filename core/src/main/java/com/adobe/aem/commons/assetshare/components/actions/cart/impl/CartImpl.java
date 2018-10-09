@@ -34,8 +34,7 @@ import java.util.Collection;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {Cart.class},
-        resourceType = {CartImpl.RESOURCE_TYPE}
+        adapters = {Cart.class}
 )
 public class CartImpl implements Cart {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/modals/cart";
