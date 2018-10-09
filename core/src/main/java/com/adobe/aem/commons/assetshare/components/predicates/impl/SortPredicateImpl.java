@@ -41,8 +41,7 @@ import java.util.List;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {SortPredicate.class},
-        resourceType = {SortPredicateImpl.RESOURCE_TYPE}
+        adapters = {SortPredicate.class}
 )
 public class SortPredicateImpl extends AbstractPredicate implements SortPredicate {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/search/sort";

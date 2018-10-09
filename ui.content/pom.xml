@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.adobe.aem.commons</groupId>
 		<artifactId>assetshare</artifactId>
-		<version>1.6.3-SNAPSHOT</version>
+		<version>1.0.62-SNAPSHOT</version>
 	</parent>
 
 	<!-- ====================================================================== -->
@@ -66,22 +66,12 @@
 			<artifactId>org.apache.sling.scripting.jsp.taglib</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.adobe.aem</groupId>
-			<artifactId>uber-jar</artifactId>
-			<classifier>apis</classifier>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.adobe.cq</groupId>
-			<artifactId>core.wcm.components.all</artifactId>
-			<type>zip</type>
 		</dependency>
 	</dependencies>
 	<build>

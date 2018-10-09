@@ -36,8 +36,7 @@ import java.util.HashMap;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {FulltextPredicate.class},
-        resourceType = {FulltextPredicateImpl.RESOURCE_TYPE}
+        adapters = {FulltextPredicate.class}
 )
 public class FulltextPredicateImpl extends AbstractPredicate implements FulltextPredicate {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/search/search-bar";

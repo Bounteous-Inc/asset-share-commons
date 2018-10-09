@@ -35,7 +35,6 @@ import org.apache.sling.settings.SlingSettingsService;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {EditorLinks.class},
-        resourceType = {EditorLinksImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class EditorLinksImpl extends AbstractEmptyTextComponent implements EditorLinks {

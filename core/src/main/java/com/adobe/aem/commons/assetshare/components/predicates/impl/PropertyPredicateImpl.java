@@ -50,7 +50,6 @@ import java.util.Map;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {PropertyPredicate.class},
-        resourceType = {PropertyPredicateImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class PropertyPredicateImpl extends AbstractPredicate implements PropertyPredicate, Options {

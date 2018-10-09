@@ -22,8 +22,11 @@ package com.adobe.aem.commons.assetshare.components.actions.impl;
 import com.adobe.aem.commons.assetshare.components.actions.ActionHelper;
 import com.adobe.aem.commons.assetshare.configuration.Config;
 import com.adobe.aem.commons.assetshare.content.AssetModel;
+import com.adobe.aem.commons.assetshare.search.providers.request.ResourceOverridingRequestWrapper;
+import com.adobe.aem.commons.assetshare.search.results.AssetResult;
 import com.day.cq.wcm.api.WCMMode;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.adapter.AdapterManager;
 import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.factory.ModelFactory;
@@ -39,6 +42,9 @@ public final class ActionHelperImpl implements ActionHelper {
     @Reference
     private ModelFactory modelFactory;
 
+    @Reference
+    private AdapterManager adapterManager;
+
     public final Collection<AssetModel> getAssetsFromQueryParameter(final SlingHttpServletRequest request, final String parameterName) {
         final RequestParameter[] requestParameters = request.getRequestParameters(parameterName);
         final Collection<AssetModel> assets = new ArrayList<>();
@@ -47,7 +53,8 @@ public final class ActionHelperImpl implements ActionHelper {
             for (final RequestParameter requestParameter : requestParameters) {
                 final Resource resource = request.getResourceResolver().getResource(requestParameter.getString());
                 if (resource != null) {
-                    final AssetModel asset = modelFactory.getModelFromWrappedRequest(request, resource, AssetModel.class);
+                    ResourceOverridingRequestWrapper wrapper = new ResourceOverridingRequestWrapper(request, resource, adapterManager);
+                    final AssetResult asset = wrapper.adaptTo(AssetResult.class);
 
                     if (asset != null) {
                         assets.add(asset);

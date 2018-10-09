@@ -52,8 +52,9 @@ public class MetadataSchemaPropertiesImpl implements MetadataProperties {
     public Map<String, List<String>> getMetadataProperties(final SlingHttpServletRequest request, final List<String> metadataFieldResourceTypes) {
         Map<String, List<String>> collectedMetadata = new HashMap<>();
 
-        final Iterator<Resource> resourceIterator = SchemaFormHelper.getSchemaFormsIterator(request.getResourceResolver(),
-                "/conf/global/settings/dam/adminui-extension/metadataschema", 0, 0);
+//        final Iterator<Resource> resourceIterator = SchemaFormHelper.getSchemaFormsIterator(request.getResourceResolver(),
+//                "/conf/global/settings/dam/adminui-extension/metadataschema", 0, 0);
+        final Iterator<Resource> resourceIterator = SchemaFormHelper.getSchemaFormsIterator(request, 0, 0);
 
         while (resourceIterator.hasNext()){
             final Resource resource = resourceIterator.next();

@@ -21,21 +21,14 @@ package com.adobe.aem.commons.assetshare.components.predicates.impl;
 
 import com.adobe.aem.commons.assetshare.components.predicates.AbstractPredicate;
 import com.adobe.aem.commons.assetshare.components.predicates.PathPredicate;
-import com.adobe.aem.commons.assetshare.components.predicates.PropertyPredicate;
 import com.adobe.aem.commons.assetshare.components.predicates.impl.options.SelectedOptionItem;
 import com.adobe.aem.commons.assetshare.components.predicates.impl.options.UnselectedOptionItem;
-import com.adobe.aem.commons.assetshare.search.impl.predicateevaluators.PropertyValuesPredicateEvaluator;
 import com.adobe.aem.commons.assetshare.util.PredicateUtil;
-import com.adobe.cq.commerce.common.ValueMapDecorator;
 import com.adobe.cq.wcm.core.components.models.form.OptionItem;
 import com.adobe.cq.wcm.core.components.models.form.Options;
 import com.day.cq.search.eval.PathPredicateEvaluator;
-import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.request.RequestParameter;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Required;
@@ -43,16 +36,12 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {PathPredicate.class},
-        resourceType = {PathPredicateImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class PathPredicateImpl extends AbstractPredicate implements PathPredicate, Options {

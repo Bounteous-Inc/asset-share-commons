@@ -40,8 +40,7 @@ import java.util.List;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {Header.class},
-        resourceType = {HeaderImpl.RESOURCE_TYPE}
+        adapters = {Header.class}
 )
 public class HeaderImpl implements Header {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/structure/header";

@@ -54,7 +54,6 @@ import java.util.*;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {PagePredicate.class},
-        resourceType = {PagePredicateImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class PagePredicateImpl extends AbstractPredicate implements PagePredicate {

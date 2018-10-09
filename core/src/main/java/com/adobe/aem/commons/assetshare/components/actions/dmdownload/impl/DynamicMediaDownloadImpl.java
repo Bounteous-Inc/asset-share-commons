@@ -33,8 +33,7 @@ import java.util.Collection;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {DynamicMediaDownload.class},
-        resourceType = {DynamicMediaDownloadImpl.RESOURCE_TYPE}
+        adapters = {DynamicMediaDownload.class}
 )
 public class DynamicMediaDownloadImpl extends DownloadImpl implements DynamicMediaDownload {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/modals/download-dynamic-media";

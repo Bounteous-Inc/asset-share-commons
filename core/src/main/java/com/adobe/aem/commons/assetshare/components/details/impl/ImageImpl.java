@@ -37,7 +37,6 @@ import java.util.regex.Pattern;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {Image.class},
-        resourceType = {ImageImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class ImageImpl extends AbstractEmptyTextComponent implements Image {

@@ -1,11 +1,16 @@
 package com.adobe.aem.commons.assetshare.util;
 
+import com.adobe.aem.commons.assetshare.search.providers.request.ResourceOverridingRequestWrapper;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.adapter.AdapterManager;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.factory.ModelFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 
 /**
  * Utility visitor that walks a Page and collects the models for resources matching at least one of the provided resource Types.
@@ -57,11 +62,25 @@ public final class ComponentModelVisitor<T> extends ResourceTypeVisitor {
 
     private void handleModelVisit(Resource resource) {
         if (clazz != null) {
-            final T model = modelFactory.getModelFromWrappedRequest(request, resource, clazz);
+            AdapterManager adapterManager = getService(AdapterManager.class);
+            ResourceOverridingRequestWrapper resourceWrapper = new ResourceOverridingRequestWrapper(request, resource, adapterManager);
+            final T model = resourceWrapper.adaptTo(clazz);
 
             if (model != null) {
                 models.add(model);
             }
         }
+    }
+
+    private <T> T getService(Class<T> serviceInterface) {
+        BundleContext bundleContext = FrameworkUtil.getBundle(serviceInterface).getBundleContext();
+        ServiceReference factoryRef = bundleContext.getServiceReference(serviceInterface.getName());
+
+        T service = null;
+        if (factoryRef != null) {
+            service = (T) bundleContext.getService(factoryRef);
+        }
+
+        return service;
     }
 }

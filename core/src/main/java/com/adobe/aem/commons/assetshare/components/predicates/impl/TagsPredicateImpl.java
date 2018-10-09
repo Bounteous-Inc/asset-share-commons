@@ -50,7 +50,6 @@ import java.util.*;
 @Model(
         adaptables = {SlingHttpServletRequest.class},
         adapters = {TagsPredicate.class},
-        resourceType = {TagsPredicateImpl.RESOURCE_TYPE},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 public class TagsPredicateImpl extends AbstractPredicate implements TagsPredicate {

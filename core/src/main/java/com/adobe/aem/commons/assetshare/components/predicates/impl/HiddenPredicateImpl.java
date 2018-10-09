@@ -41,8 +41,7 @@ import java.util.*;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class},
-        adapters = {HiddenPredicate.class},
-        resourceType = {HiddenPredicateImpl.RESOURCE_TYPE}
+        adapters = {HiddenPredicate.class}
 )
 public class HiddenPredicateImpl extends AbstractPredicate implements HiddenPredicate {
     protected static final String RESOURCE_TYPE = "asset-share-commons/components/search/hidden";
