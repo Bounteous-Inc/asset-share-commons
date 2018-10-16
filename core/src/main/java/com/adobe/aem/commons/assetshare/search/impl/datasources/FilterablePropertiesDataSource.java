@@ -74,16 +74,16 @@ public class FilterablePropertiesDataSource extends SlingSafeMethodsServlet {
             final String value = entry.getKey();
 
             if (fastProperties.contains(StringUtils.removeStart(entry.getKey(), "./"))) {
-                data.put(fastPropertiesService.getFastLabel(label) , value);
+                data.put(fastPropertiesService.getFastLabel(label) , "./" + value);
             } else {
-                data.put(fastPropertiesService.getSlowLabel(label), value);
+                data.put(fastPropertiesService.getSlowLabel(label), "./" + value);
             }
         }
 
         final List<String> deltaFastProperties = fastPropertiesService.getDeltaProperties(fastProperties, (Collection<String>)(Collection<?>)data.values());
 
         for (String deltaFastProperty : deltaFastProperties) {
-            data.put(FastProperties.FAST + " " + deltaFastProperty, deltaFastProperty);
+            data.put(FastProperties.FAST + " " + deltaFastProperty, "./" + deltaFastProperty);
         }
 
         dataSourceBuilder.build(request, data);
