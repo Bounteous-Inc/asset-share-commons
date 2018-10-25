@@ -151,7 +151,20 @@ public class MetadataImpl extends AbstractEmptyTextComponent implements Metadata
         if (StringUtils.isBlank(getPropertyName())) {
             return true;
         } else {
-            return combinedProperties.get(getPropertyName()) == null;
+            Object val = combinedProperties.get(getPropertyName());
+            if (val == null) {
+                return true;
+            } else if (val instanceof String) {
+                return StringUtils.isBlank((String) val);
+            } else if (val instanceof String[]) {
+                String[] vals = (String[]) val;
+                return vals.length == 1 && StringUtils.isBlank(vals[0]);
+            } else if (val instanceof Object[]) {
+                Object[] vals = (Object[]) val;
+                return vals.length == 1 && vals[0] == null;
+            } else {
+                return false;
+            }
         }
     }
 
