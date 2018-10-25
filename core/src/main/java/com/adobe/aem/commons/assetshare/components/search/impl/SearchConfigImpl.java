@@ -11,9 +11,11 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.factory.ModelFactory;
 
 import javax.annotation.PostConstruct;
@@ -23,8 +25,7 @@ import java.util.stream.Collectors;
 
 @Model(
         adaptables = {SlingHttpServletRequest.class,Resource.class},
-        adapters = {SearchConfig.class},
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
+        adapters = {SearchConfig.class}
 )
 public class SearchConfigImpl implements SearchConfig {
     public static final String RESOURCE_TYPE = "asset-share-commons/components/search/results";
@@ -58,7 +59,8 @@ public class SearchConfigImpl implements SearchConfig {
     @OSGiService
     private ModelFactory modelFactory;
 
-    @Self
+    @SlingObject
+    @Optional
     private Resource resource;
 
     private ValueMap properties;
