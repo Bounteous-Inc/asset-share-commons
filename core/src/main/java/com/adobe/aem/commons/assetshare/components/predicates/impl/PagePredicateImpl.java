@@ -106,16 +106,14 @@ public class PagePredicateImpl extends AbstractPredicate implements PagePredicat
 
     public int getLimit() {
         final RequestParameter requestParameter = request.getRequestParameter("p.limit");
-        int limit;
+        int limit = searchConfig.getLimit();
 
         if (requestParameter != null) {
             try {
                 limit = Integer.parseInt(requestParameter.getString());
             } catch (NumberFormatException e) {
-                limit = searchConfig.getLimit();
+                // Use the configuration-provided default
             }
-        } else {
-            limit = searchConfig.getLimit();
         }
 
         if (limit > MAX_LIMIT) {
@@ -125,6 +123,21 @@ public class PagePredicateImpl extends AbstractPredicate implements PagePredicat
         } else {
             return limit;
         }
+    }
+
+    public int getOffset() {
+        final RequestParameter requestParameter = request.getRequestParameter("p.offset");
+        int offset = 0;
+
+        if (requestParameter != null) {
+            try {
+                offset = Integer.parseInt(requestParameter.getString());
+            } catch (NumberFormatException e) {
+                // Use 0
+            }
+        }
+
+       return offset;
     }
 
     public String getGuessTotal() {
@@ -167,6 +180,11 @@ public class PagePredicateImpl extends AbstractPredicate implements PagePredicat
 
         // QueryBuilder Parameters
 
+        // p.offset
+        if (!ArrayUtils.contains(excludeParamTypes, ParamTypes.OFFSET)) {
+            addOffsetAsParameterPredicate(parameterGroup);
+        }
+
         // p.limit
         if (!ArrayUtils.contains(excludeParamTypes, ParamTypes.LIMIT)) {
             addLimitAsParameterPredicate(parameterGroup);
@@ -185,6 +203,12 @@ public class PagePredicateImpl extends AbstractPredicate implements PagePredicat
     private void addGuessTotalAsParameterPredicate(final PredicateGroup parameterGroup) {
         parameterGroup.addAll(PredicateConverter.createPredicates(ImmutableMap.<String, String>builder().
                 put(Predicate.PARAM_GUESS_TOTAL, getGuessTotal()).
+                build()));
+    }
+
+    private void addOffsetAsParameterPredicate(final PredicateGroup parameterGroup) {
+        parameterGroup.addAll(PredicateConverter.createPredicates(ImmutableMap.<String, String>builder().
+                put(Predicate.PARAM_OFFSET,  String.valueOf(getOffset())).
                 build()));
     }
 
